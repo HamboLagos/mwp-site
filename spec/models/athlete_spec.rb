@@ -13,6 +13,7 @@ describe Athlete do
     it { should respond_to(:year) }
     it { should respond_to(:email) }
     it { should respond_to(:posts) }
+    it { should respond_to(:name) }
   end
 
   describe "validations" do
@@ -35,10 +36,35 @@ describe Athlete do
       before { athlete.email = " " }
       it { should_not be_valid }
     end
+
+    describe "#name validations" do
+      before do
+        athlete.name = "Samuel Jackson"
+      end
+
+      it "should update the first and last name appropriately" do
+        athlete.first.should == "Samuel"
+        athlete.last.should == "Jackson"
+      end
+
+      specify "#name should return the name of the athlete" do
+        athlete.name.should == "Samuel Jackson"
+      end
+
+      describe "#name?" do
+        it "should return true if given the correct name" do
+          athlete.name?("Samuel Jackson").should be_true
+        end
+
+        it "should return false if given the incorrect name" do
+          athlete.name?("Hillary Clinton").should be_false
+        end
+      end
+    end
   end
 
   describe "Posts" do
-    # test for array of posts returned by .posts
+
     it "should have no posts by default" do
       athlete.posts.should be_empty
     end

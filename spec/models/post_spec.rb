@@ -27,5 +27,25 @@ describe Post do
       before { post.author = nil }
       it { should_not be_valid }
     end
+
+    describe "#author validations" do
+      let(:author) { FactoryGirl.create(:athlete) }
+      before { post.author = author }
+
+      describe "#author should return the author" do
+        specify { post.author.should == author }
+      end
+
+      describe "#author? should return" do
+
+        specify "true if given the author" do
+          post.author?(author).should be_true
+        end
+
+        specify "false if given the incorrect author" do
+          post.author?(FactoryGirl.create(:athlete)).should be_false
+        end
+      end
+    end
   end
 end

@@ -1,3 +1,42 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#new_user_sidebar {
+  margin-top: 40px;
+
+  strong {
+    font-size: 30px;
+    color: ForestGreen;
+  }
+
+  ul.nav-list {
+    margin-top: 10px;
+    background-color: #eee;
+  }
+}
+
+small {
+  display: block;
+}
+
+#announcements_pane {
+
+  h1 {
+    color: green;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  .content {
+    padding-top: 10px;
+  }
+
+  .meta-data {
+    display: block;
+    text-align: right;
+  }
+}
+

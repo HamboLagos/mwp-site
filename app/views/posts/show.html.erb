@@ -1,9 +1,19 @@
 <div class='row'>
-  <div class='span4'>
-    <h3>New Here?</h3>
-    <div>What do you want to do?</div>
+  <div class='span3'>
+    <%= render 'new_user_sidebar' %>
   </div>
-  <div class='span8'>
-    <h1>Announcements</h1>
+  <div class='offset1 span8' id='announcements_pane'>
+    <h1 class='text-center'>Announcements</h1>
+    <% if @posts.any? %>
+      <ul class='announcements'>
+        <% @posts.each do |post|%>
+          <li class='content'><%= post.content %></li>
+          <small class='meta-data'><%= post.author.name %> <br />
+            posted: <%= time_tag post.updated_at %></small>
+        <% end %>
+      <% else %>
+        Sorry, have been no posts recently.
+      <% end %>
+    </ul>
   </div>
 </div>

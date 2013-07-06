@@ -14,6 +14,6 @@ class Post < ActiveRecord::Base
   end
 
   def author? other
-    author == other?
+    self.author == other
   end
 end

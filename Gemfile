@@ -59,7 +59,7 @@ gem 'awesome_print'
 group :development, :test do
   
   # use rspec for tests by default
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~>2.0'
 
   # use guard to automate testing
   gem 'guard-rspec'
