@@ -11,10 +11,13 @@ def make_athletes
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
     email = "example-#{n+1}@cpmwp.org"
-    Athlete.create!(first:  first_name,
-                    last:   last_name,
-                    email:  email,
-                    year:   1)
+    password = "foobar"
+    Athlete.create!(first:                  first_name,
+                    last:                   last_name,
+                    email:                  email,
+                    year:                   1,
+                    password:               password,
+                    password_confirmation:  password)
   end
 end
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Athlete do
-  let(:athlete) { FactoryGirl.create(:athlete) }
+  let(:athlete) { FactoryGirl.build(:athlete) }
 
   subject { athlete }
 
@@ -14,6 +14,7 @@ describe Athlete do
     it { should respond_to(:email) }
     it { should respond_to(:posts) }
     it { should respond_to(:name) }
+    it { should respond_to(:authenticate) }
   end
 
   describe "validations" do
@@ -35,6 +36,39 @@ describe Athlete do
     describe "with missing email" do
       before { athlete.email = " " }
       it { should_not be_valid }
+    end
+
+    describe "password validations" do
+      describe "with missing password" do
+        let(:joe) { FactoryGirl.build(:athlete, password: "") }
+
+        specify { joe.should_not be_valid }
+      end
+
+      describe "with mismatched password_confirmation" do
+        before { athlete.password_confirmation = "mismatch" }
+        it { should_not be_valid }
+      end
+    end
+
+    describe "#authenticate validations" do
+      before { athlete.save }
+
+      describe "with correct password" do
+        let(:found_athlete) do
+          Athlete.find_by_email(athlete.email).authenticate(athlete.password)
+        end
+
+        specify { found_athlete.should == athlete }
+      end
+
+      describe "with incorrect password" do
+        let(:found_athlete) do
+          Athlete.find_by_email(athlete.email).authenticate("mismatch")
+        end
+
+        specify { found_athlete.should == false }
+      end
     end
 
     describe "#name validations" do
