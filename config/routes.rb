@@ -3,7 +3,9 @@ MwpSite::Application.routes.draw do
   # priority.
   # See how all your routes lay out with "rake routes".
 
-  root 'posts#show'
+  root 'posts#index'
+
+  resources :athletes
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

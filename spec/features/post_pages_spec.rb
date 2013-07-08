@@ -7,7 +7,7 @@ describe "Post pages" do
   describe "#show (Home Page)" do
     before { visit root_path }
 
-    it { should show_home_page }
+    it { should show_posts_page }
 
     describe "new user sidebar" do
 

@@ -1,0 +1,31 @@
+<h1>Join the Team Roster</h1>
+
+<%= form_for @athlete do |f| %>
+
+  <%= f.label 'First name'%>
+  <%= f.text_field :first %>
+
+  <%= f.label 'Last name' %>
+  <%= f.text_field :last %>
+
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+
+  <%# <%= f.label :year %>
+  <%# <%= f.radio_button :year, :First %>
+  <%# <%= f.radio_button :year, :Second %>
+  <%# <%= f.radio_button :year, :Third %>
+  <%# <%= f.radio_button :year, :Fourth %>
+  <%# <%= f.radio_button :year, 'Fifth or More' %>
+  <%# <%= f.radio_button :year, :Grad %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+
+  <%= f.label 'Confirm Password' %>
+  <%= f.password_field :password_confirmation %>
+
+  <%= f.submit "Join", class: 'btn btn-large btn-primary' %>
+
+<% end %>
+

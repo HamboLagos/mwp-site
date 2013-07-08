@@ -40,9 +40,17 @@ describe Athlete do
 
     describe "password validations" do
       describe "with missing password" do
-        let(:joe) { FactoryGirl.build(:athlete, password: "") }
+        # password digested on build, need a new athlete which has never had
+        # a matching password and confirmation
+        let(:missing_password) { FactoryGirl.build(:athlete, password: "") }
 
-        specify { joe.should_not be_valid }
+        specify { missing_password.should_not be_valid }
+      end
+
+      describe "with missing password_confirmation" do
+        before { athlete.password_confirmation = " " }
+
+        it { should_not be_valid }
       end
 
       describe "with mismatched password_confirmation" do

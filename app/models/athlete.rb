@@ -5,14 +5,16 @@ class Athlete < ActiveRecord::Base
 
   validates :first, presence: true
   validates :last, presence: true
-  validates :year, presence: true
   validates :email, presence: true
+  # validates :year, presence: true
 
   def name
     "#{self.first} #{self.last}"
   end
 
-  # other is space deflimited, first and last name string
+  # other is space deflimited string containing first and last names
+  # yes: "Samuel Jackson", "Omar Rodriguez-Lopez"
+  # no: "Booker T. Washington" => "Booker Washington"
   def name= other
     self.first = other.split.first
     self.last = other.split.last
