@@ -19,7 +19,7 @@ module AthletePagesUtilities
     fill_in 'athlete_password',              with: athlete.password
     fill_in 'athlete_password_confirmation', with: athlete.password
 
-    expect { click_button "Join" }.to change(Athlete, :count).by(1)
+    click_button "Join"
   end
 
 end
