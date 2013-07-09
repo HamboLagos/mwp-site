@@ -8,9 +8,8 @@ describe Athlete do
   it { should be_valid }
 
   describe "Basic Functionalities" do
-    it { should respond_to(:first) }
-    it { should respond_to(:last) }
-    it { should respond_to(:year) }
+    it { should respond_to(:first_name) }
+    it { should respond_to(:last_name) }
     it { should respond_to(:email) }
     it { should respond_to(:posts) }
     it { should respond_to(:name) }
@@ -19,17 +18,12 @@ describe Athlete do
 
   describe "validations" do
     describe "with missing first name" do
-      before { athlete.first = " " }
+      before { athlete.first_name = " " }
       it { should_not be_valid }
     end
 
     describe "with missing last name" do
-      before { athlete.last = " " }
-      it { should_not be_valid }
-    end
-
-    describe "with missing year" do
-      before { athlete.year = nil }
+      before { athlete.last_name = " " }
       it { should_not be_valid }
     end
 
@@ -60,19 +54,19 @@ describe Athlete do
     end
 
     describe "#authenticate validations" do
-      before { athlete.save }
+      let(:saved_athlete) { FactoryGirl.create(:athlete) }
 
       describe "with correct password" do
         let(:found_athlete) do
-          Athlete.find_by_email(athlete.email).authenticate(athlete.password)
+          Athlete.find(saved_athlete.id).authenticate(saved_athlete.password)
         end
 
-        specify { found_athlete.should == athlete }
+        specify { found_athlete.should == saved_athlete }
       end
 
       describe "with incorrect password" do
         let(:found_athlete) do
-          Athlete.find_by_email(athlete.email).authenticate("mismatch")
+          Athlete.find(saved_athlete.id).authenticate("mismatch")
         end
 
         specify { found_athlete.should == false }
@@ -80,13 +74,11 @@ describe Athlete do
     end
 
     describe "#name validations" do
-      before do
-        athlete.name = "Samuel Jackson"
-      end
+      before { athlete.name = "Samuel Jackson" }
 
       it "should update the first and last name appropriately" do
-        athlete.first.should == "Samuel"
-        athlete.last.should == "Jackson"
+        athlete.first_name.should == "Samuel"
+        athlete.last_name.should == "Jackson"
       end
 
       specify "#name should return the name of the athlete" do
@@ -101,6 +93,21 @@ describe Athlete do
         it "should return false if given the incorrect name" do
           athlete.name?("Hillary Clinton").should be_false
         end
+      end
+    end
+
+    describe "email is unique" do
+      let(:unique_athlete) { FactoryGirl.build(:athlete, email: "ex@example.com")}
+      let(:duplicate_athlete) { FactoryGirl.build(:athlete, email: "ex@example.com",
+                                                  first_name: "Danny", last_name: "Trejo") }
+      before { unique_athlete.save }
+
+      it "should invalidate an athlete with a duplicate email" do
+        duplicate_athlete.should_not be_valid
+      end
+
+      it "should raise an error when an non-unique email is saved to the db" do
+        duplicate_athlete.save.should == false
       end
     end
   end

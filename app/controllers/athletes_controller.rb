@@ -6,7 +6,12 @@ class AthletesController < ApplicationController
 
   def create
     @athlete = Athlete.new(athlete_params)
-    render 'new' unless @athlete.save
+    if @athlete.save
+      flash[:notice] = "Welcome #{@athlete.name}. Your acceptance to the Team Roster is pending " +
+        "the President's approval"
+    else
+      render 'new'
+    end
   end
 
   def update
@@ -16,7 +21,7 @@ class AthletesController < ApplicationController
   private
 
   def athlete_params
-    params.require(:athlete).permit(:first, :last, :email,
+    params.require(:athlete).permit(:first_name, :last_name, :email,
                                     :password, :password_confirmation)
   end
 end

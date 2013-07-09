@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Post do
 
-  let(:post) { FactoryGirl.create(:post) }
+  let(:post) { FactoryGirl.build(:post) }
 
   subject { post }
 
@@ -29,7 +29,7 @@ describe Post do
     end
 
     describe "#author validations" do
-      let(:author) { FactoryGirl.create(:athlete) }
+      let(:author) { FactoryGirl.build(:athlete, first_name: "George", last_name: "Orwell") }
       before { post.author = author }
 
       describe "#author should return the author" do
@@ -43,7 +43,7 @@ describe Post do
         end
 
         specify "false if given the incorrect author" do
-          post.author?(FactoryGirl.create(:athlete)).should be_false
+          post.author?(FactoryGirl.build(:athlete)).should be_false
         end
       end
     end

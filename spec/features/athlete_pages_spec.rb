@@ -1,4 +1,5 @@
 require 'spec_helper'
+include AthletePagesUtilities
 
 describe "Athlete Pages" do
 
@@ -18,20 +19,21 @@ describe "Athlete Pages" do
 
       it "should alert the user of the error(s)" do
         click_button "Join"
-        page.should have_selector("div.error")
+        page.should have_selector("div#error_explanation")
       end
     end
 
     describe "with valid information" do
-      it "should create a new user" do
-        fill_in 'First name',       with: athlete.first
-        fill_in 'Last name',        with: athlete.last
-        fill_in 'email',            with: athlete.email
-        # choose 'First' # year in school
-        fill_in 'Password',         with: athlete.password
-        fill_in 'Confirm Password', with: athlete.password
 
-        expect { click_link "Join" }.to change(Athlete, :count).by(1)
+      it "should create a new athlete" do
+        expect { valid_sign_up(athlete) }.to change(Athlete, :count).by(1)
+      end
+
+      it "should welcome the new athlete" do
+        valid_sign_up(athlete)
+        page.should have_content('Welcome')
+        page.should have_content('pending')
+        page.should have_content('approval')
       end
     end
   end

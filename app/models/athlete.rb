@@ -3,21 +3,20 @@ class Athlete < ActiveRecord::Base
 
   has_many :posts
 
-  validates :first, presence: true
-  validates :last, presence: true
-  validates :email, presence: true
-  # validates :year, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :email, presence: true, uniqueness: true
 
   def name
-    "#{self.first} #{self.last}"
+    "#{self.first_name} #{self.last_name}"
   end
 
   # other is space deflimited string containing first and last names
   # yes: "Samuel Jackson", "Omar Rodriguez-Lopez"
   # no: "Booker T. Washington" => "Booker Washington"
   def name= other
-    self.first = other.split.first
-    self.last = other.split.last
+    self.first_name = other.split.first
+    self.last_name = other.split.last
   end
 
   def name? other

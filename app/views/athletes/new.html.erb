@@ -2,11 +2,13 @@
 
 <%= form_for @athlete do |f| %>
 
-  <%= f.label 'First name'%>
-  <%= f.text_field :first %>
+  <%= render 'shared/error_messages', object: f.object %>
 
-  <%= f.label 'Last name' %>
-  <%= f.text_field :last %>
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %>
+
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %>
 
   <%= f.label :email %>
   <%= f.text_field :email %>

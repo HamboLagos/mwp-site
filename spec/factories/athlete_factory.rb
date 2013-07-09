@@ -1,9 +1,8 @@
 FactoryGirl.define do
   factory :athlete do
-    first "Joe"
-    last "Blow"
-    email "example@CPMensWaterPolo.com"
-    year 1
+    first_name "Joe"
+    last_name "Blow"
+    sequence(:email) { |n| "example_#{n}@CPMensWaterPolo.com" }
     password "foobar"
     password_confirmation "foobar"
   end

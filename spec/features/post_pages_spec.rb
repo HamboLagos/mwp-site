@@ -33,22 +33,16 @@ describe "Post pages" do
         expect(page).to have_selector('li.content', text: post2.content)
         expect(page).to have_selector('li.content', text: post3.content)
 
-        expect(page).to have_selector('small.meta-data',
-                                      text: post1.author.name)
-        expect(page).to have_selector('small.meta-data',
-                                      text: post2.author.name)
-        expect(page).to have_selector('small.meta-data',
-                                      text: post3.author.name)
+        expect(page).to have_selector('small.meta-data', text: post1.author.name)
+        expect(page).to have_selector('small.meta-data', text: post2.author.name)
+        expect(page).to have_selector('small.meta-data', text: post3.author.name)
 
-        expect(page).to have_selector('small.meta-data', text:
-                                      post1.updated_at.strftime(
-                                        "posted: %B %d, %Y %H:%M"))
-        expect(page).to have_selector('small.meta-data',
-                                      post2.updated_at.strftime(
-                                        "posted: %B %d, %Y %H:%M"))
-        expect(page).to have_selector('small.meta-data',
-                                      post3.updated_at.strftime(
-                                        "posted: %B %d, %Y %H:%M"))
+        expect(page).to have_selector('small.meta-data', text: post1.updated_at.strftime(
+          "posted: %B %d, %Y %H:%M"))
+        expect(page).to have_selector('small.meta-data', text: post2.updated_at.strftime(
+          "posted: %B %d, %Y %H:%M"))
+        expect(page).to have_selector('small.meta-data', text: post3.updated_at.strftime(
+          "posted: %B %d, %Y %H:%M"))
       end
     end
   end
