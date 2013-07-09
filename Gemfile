@@ -23,7 +23,8 @@ gem 'coffee-rails', '~> 4.0.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+# Turbolinks makes following links in your web application faster.
+# Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -75,11 +76,19 @@ group :development, :test do
   gem 'childprocess'
 end
 
+# set environment variables in config/application.yml
+gem 'figaro'
+
 group :test do
   gem 'capybara', '~> 2.1.0'
   gem 'rb-inotify'
   gem 'libnotify'
   gem 'factory_girl_rails'
+end
+
+group :development do
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 # Use Capistrano for deployment
