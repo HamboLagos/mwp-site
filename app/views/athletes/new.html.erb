@@ -1,33 +1,34 @@
-<h1>Join the Team Roster</h1>
+<div class='span6 offset3'>
+  <h1>Join the Team Roster</h1>
 
-<%= form_for @athlete do |f| %>
+  <%= form_for @athlete do |f| %>
 
-  <%= render 'shared/error_messages', object: f.object %>
+    <%= render 'shared/error_messages', object: f.object %>
 
-  <%= f.label :first_name %>
-  <%= f.text_field :first_name %>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
 
-  <%= f.label :last_name %>
-  <%= f.text_field :last_name %>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
 
-  <%= f.label :email %>
-  <%= f.text_field :email %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
 
-  <%# <%= f.label :year %>
-  <%# <%= f.radio_button :year, :First %>
-  <%# <%= f.radio_button :year, :Second %>
-  <%# <%= f.radio_button :year, :Third %>
-  <%# <%= f.radio_button :year, :Fourth %>
-  <%# <%= f.radio_button :year, 'Fifth or More' %>
-  <%# <%= f.radio_button :year, :Grad %>
+    <%# <%= f.label :year %>
+    <%# <%= f.radio_button :year, :First %>
+    <%# <%= f.radio_button :year, :Second %>
+    <%# <%= f.radio_button :year, :Third %>
+    <%# <%= f.radio_button :year, :Fourth %>
+    <%# <%= f.radio_button :year, 'Fifth or More' %>
+    <%# <%= f.radio_button :year, :Grad %>
 
-  <%= f.label :password %>
-  <%= f.password_field :password %>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
 
-  <%= f.label 'Confirm Password' %>
-  <%= f.password_field :password_confirmation %>
+    <%= f.label 'Confirm Password' %>
+    <%= f.password_field :password_confirmation %>
 
-  <%= f.submit "Join", class: 'btn btn-large btn-primary' %>
+    <%= f.submit "Join", class: 'btn btn-large btn-primary' %>
 
-<% end %>
-
+  <% end %>
+</div>

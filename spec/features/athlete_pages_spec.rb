@@ -14,12 +14,21 @@ describe "Athlete Pages" do
     describe "with invalid information" do
 
       it "should not create a new Athlete" do
-        expect { click_button "Join" }.not_to change(Athlete, :count)
+        expect { invalid_sign_up }.not_to change(Athlete, :count)
       end
 
       it "should alert the user of the error(s)" do
-        click_button "Join"
+        invalid_sign_up
         page.should have_selector("div#error_explanation")
+      end
+
+      describe "after visiting another page" do
+        before { invalid_sign_up }
+
+        it "should remove the error messages" do
+          click_link "Cal Poly Men's Water Polo"
+          page.should_not have_selector('div#error_explanation')
+        end
       end
     end
 
@@ -34,6 +43,16 @@ describe "Athlete Pages" do
         page.should have_content('Welcome')
         page.should have_content('pending')
         page.should have_content('approval')
+      end
+
+      describe "navigating to another page" do
+        before { valid_sign_up(athlete) }
+
+        it "should remove the welcome notice" do
+          click_link "Cal Poly Men's Water Polo"
+
+          page.should_not have_content('Welcome')
+        end
       end
     end
   end

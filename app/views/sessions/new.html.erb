@@ -1,0 +1,17 @@
+<div class="span6 offset3">
+  <h1 class='text-center'>Sign In</h1>
+
+  <%= render 'shared/error_messages', object: @form_errors %>
+
+  <%= form_tag sessions_path do %>
+
+    <%= label_tag 'email' %>
+    <%= email_field_tag 'email', 'dannytrejo@machete.com' %>
+
+    <%= label_tag 'password' %>
+    <%= password_field_tag 'password', 'seekritfraze' %>
+
+    <%= submit_tag "Sign In", class: "btn btn-lage btn-primary" %>
+
+  <% end %>
+</div>

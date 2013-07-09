@@ -22,4 +22,8 @@ module AthletePagesUtilities
     click_button "Join"
   end
 
+  def invalid_sign_up
+    click_button "Join"
+  end
+
 end

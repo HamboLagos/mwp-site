@@ -9,6 +9,7 @@ class AthletesController < ApplicationController
     if @athlete.save
       flash[:notice] = "Welcome #{@athlete.name}. Your acceptance to the Team Roster is pending " +
         "the President's approval"
+      redirect_to root_path
     else
       render 'new'
     end

@@ -7,6 +7,11 @@ MwpSite::Application.routes.draw do
 
   resources :athletes
 
+  # sessions (authentication)
+  resources :sessions, only: [:create]
+  get '/signin' => 'sessions#new'
+  get '/signout' => 'sessions#destroy'
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
