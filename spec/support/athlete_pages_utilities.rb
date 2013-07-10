@@ -1,6 +1,6 @@
 module AthletePagesUtilities
 
-  RSpec::Matchers.define :show_new_athlete_page do
+  RSpec::Matchers.define :show_signup_page do
     match do |page|
       page.should have_selector('h1', text: 'Join the Team Roster')
       page.should have_selector("input[name='athlete[first_name]']")
@@ -11,6 +11,13 @@ module AthletePagesUtilities
       page.should have_selector("input[value='Join']")
     end
   end
+
+  RSpec::Matchers.define :show_roster_page do
+    match do |page|
+      page.should have_selector('h1', text:"#{Time.now.year} Roster")
+    end
+  end
+
 
   def valid_sign_up(athlete)
     fill_in 'athlete_first_name',            with: athlete.first_name

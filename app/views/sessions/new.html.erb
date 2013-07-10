@@ -5,13 +5,13 @@
 
   <%= form_tag sessions_path do %>
 
-    <%= label_tag 'email' %>
-    <%= email_field_tag 'email', 'dannytrejo@machete.com' %>
+    <%= label_tag :email %>
+    <%= email_field_tag :email %>
 
-    <%= label_tag 'password' %>
-    <%= password_field_tag 'password', 'seekritfraze' %>
+    <%= label_tag :password %>
+    <%= password_field_tag :password %>
 
-    <%= submit_tag "Sign In", class: "btn btn-lage btn-primary" %>
+    <%= submit_tag "Sign In", class: "btn btn-large btn-primary" %>
 
   <% end %>
 </div>

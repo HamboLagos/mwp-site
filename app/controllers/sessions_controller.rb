@@ -7,12 +7,14 @@ class SessionsController < ApplicationController
   end
 
   def create
-    athlete = Athlete.find_by(email: sessions_params[:email].downcase)
+    athlete = Athlete.find_by(email: sessions_params[:email])
     if athlete && athlete.authenticate(sessions_params[:password])
       # sign_in athlete
-      redirect_to root_path
+      redirect_to roster_path
     else
-      @form_errors = FormErrors.new("Invalid email/password combination")
+      @form_errors = FormErrors.new("Invalid email/password combination",
+                                    "#{sessions_params[:email]}",
+                                    "#{sessions_params[:password]}")
       render 'new'
     end
   end
@@ -25,21 +27,4 @@ class SessionsController < ApplicationController
   def sessions_params
     params.permit(:email, :password)
   end
-
-  class InFormErrors
-    attr_accessor :errors
-
-    def initialize(*errors)
-      @errors = ErrorFields.new(errors)
-    end
-
-  end
-
-  class ErrorFields < Array
-
-    def full_messages
-      self
-    end
-  end
-
 end

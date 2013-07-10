@@ -7,9 +7,9 @@ describe "Athlete Pages" do
 
   describe "Sign up (#new and #create)" do
     let(:athlete) { FactoryGirl.build(:athlete) }
-    before { visit new_athlete_path }
+    before { visit signup_path }
 
-    it { should show_new_athlete_page }
+    it { should show_signup_page }
 
     describe "with invalid information" do
 

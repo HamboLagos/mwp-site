@@ -12,6 +12,10 @@ describe "Sessions" do
 
     describe "with invalid information" do
 
+      it "should stay on the same page" do
+        page.should show_signin_page
+      end
+
       it "should alert the user of the error(s)" do
         invalid_sign_in
         page.should have_selector("div#error_explanation")
@@ -24,6 +28,15 @@ describe "Sessions" do
           click_link "Cal Poly Men's Water Polo"
           page.should_not have_selector("div#error_explanation")
         end
+      end
+    end
+
+    describe "with valid information" do
+      let(:athlete) { FactoryGirl.create(:athlete) }
+      before { sign_in athlete }
+
+      it "should redirect to the athlete roster page" do
+        page.should show_roster_page
       end
     end
   end

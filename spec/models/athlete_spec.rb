@@ -110,6 +110,15 @@ describe Athlete do
         duplicate_athlete.save.should == false
       end
     end
+
+    describe "when capital letters are present in email" do
+      let(:uppercase_email) { FactoryGirl.build(:athlete, email: "SoMeCaPiTaLs@Example.CoM") }
+      before { uppercase_email.save }
+
+      it "should downcase! email when saving to the db" do
+        Athlete.find_by(email: uppercase_email.email).should == uppercase_email
+      end
+    end
   end
 
   describe "Posts" do

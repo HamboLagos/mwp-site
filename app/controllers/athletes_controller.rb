@@ -9,7 +9,7 @@ class AthletesController < ApplicationController
     if @athlete.save
       flash[:notice] = "Welcome #{@athlete.name}. Your acceptance to the Team Roster is pending " +
         "the President's approval"
-      redirect_to root_path
+      redirect_to roster_path
     else
       render 'new'
     end
@@ -17,6 +17,9 @@ class AthletesController < ApplicationController
 
   def update
     Athlete.find(params[:id]).update!(athlete_params)
+  end
+
+  def index
   end
 
   private
