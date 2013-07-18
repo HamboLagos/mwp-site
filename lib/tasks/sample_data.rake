@@ -12,10 +12,9 @@ def make_athletes
     last_name = Faker::Name.last_name
     email = "example-#{n+1}@cpmwp.org"
     password = "foobar"
-    Athlete.create!(first:                  first_name,
-                    last:                   last_name,
+    Athlete.create!(first_name:             first_name,
+                    last_name:              last_name,
                     email:                  email,
-                    year:                   1,
                     password:               password,
                     password_confirmation:  password)
   end
@@ -29,6 +28,5 @@ def make_posts
     athletes.each do |athlete|
       athlete.posts.create!(title: title, content: content)
     end
-
   end
 end

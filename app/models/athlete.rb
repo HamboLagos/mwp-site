@@ -4,6 +4,7 @@ class Athlete < ActiveRecord::Base
   has_many :posts
 
   before_validation { self.email.downcase! }
+  before_save { :create_remember_token }
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -11,7 +12,7 @@ class Athlete < ActiveRecord::Base
 
 
   def name
-    "#{self.first_name} #{self.last_name}"
+    "#{first_name} #{last_name}"
   end
 
   # other is space deflimited string containing first and last names
@@ -24,5 +25,11 @@ class Athlete < ActiveRecord::Base
 
   def name? other
     name == other
+  end
+
+  private
+
+  def create_remember_token
+    self.remember_token = SecureRandom.urlsafe_base64
   end
 end

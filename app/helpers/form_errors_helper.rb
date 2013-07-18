@@ -2,23 +2,23 @@
 # view/shared/_error_messages.html.erb with a form_tag form.
 #
 # 'app/controllers/controller.rb'
-# include FormErrorsHelper
 #
 # class Controller < ApplicationController
+#   include FormErrorsHelper
 #
 #   def new
 #     @form_errors ||= SignInFormErrors.new
 #   end
 #
 #   def create
-#     # most of create method ommitted
+#     # most of create method ommitted...
 #     # if there was an error
 #       @errors ||= FormErrors.new("Invalid email format", "invalid email/password combination")
 #       render 'new'
 #   end
 # end
 #
-# 'app/views/view.html.erb'
+# 'app/views/model_name/new.html.erb'
 # <# headings %>
 #
 # <%= render 'shared/error_messages', object: @errors %>
@@ -43,5 +43,4 @@ module FormErrorsHelper
       self
     end
   end
-
 end

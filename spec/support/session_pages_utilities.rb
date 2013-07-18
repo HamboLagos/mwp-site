@@ -12,7 +12,7 @@ module SessionPagesUtilities
     click_button "Sign In"
   end
 
-  def sign_in(athlete)
+  def valid_sign_in(athlete)
     fill_in 'email', with: athlete.email
     fill_in 'password', with: athlete.password
 

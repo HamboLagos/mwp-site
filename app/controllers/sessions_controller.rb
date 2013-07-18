@@ -1,6 +1,6 @@
-
 class SessionsController < ApplicationController
   include FormErrorsHelper
+  include SessionsHelper
 
   def new
     @form_errors = FormErrors.new
@@ -9,12 +9,10 @@ class SessionsController < ApplicationController
   def create
     athlete = Athlete.find_by(email: sessions_params[:email])
     if athlete && athlete.authenticate(sessions_params[:password])
-      # sign_in athlete
+      sign_in athlete
       redirect_to roster_path
     else
-      @form_errors = FormErrors.new("Invalid email/password combination",
-                                    "#{sessions_params[:email]}",
-                                    "#{sessions_params[:password]}")
+      @form_errors = FormErrors.new("Invalid email/password combination")
       render 'new'
     end
   end
