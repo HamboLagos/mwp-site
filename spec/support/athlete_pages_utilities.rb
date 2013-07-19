@@ -6,6 +6,7 @@ module AthletePagesUtilities
       page.should have_selector("input[name='athlete[first_name]']")
       page.should have_selector("input[name='athlete[last_name]']")
       page.should have_selector("input[name='athlete[email]']")
+      page.should have_selector("input[name='athlete[year_in_school]']")
       page.should have_selector("input[name='athlete[password]']")
       page.should have_selector("input[name='athlete[password_confirmation]']")
       page.should have_selector("input[value='Join']")
@@ -20,9 +21,11 @@ module AthletePagesUtilities
 
 
   def valid_sign_up(athlete)
+    visit signup_path
     fill_in 'athlete_first_name',            with: athlete.first_name
     fill_in 'athlete_last_name',             with: athlete.last_name
     fill_in 'athlete_email',                 with: athlete.email
+    choose 'First'
     fill_in 'athlete_password',              with: athlete.password
     fill_in 'athlete_password_confirmation', with: athlete.password
 
@@ -30,6 +33,7 @@ module AthletePagesUtilities
   end
 
   def invalid_sign_up
+    visit signup_path
     click_button "Join"
   end
 

@@ -15,10 +15,12 @@ def make_athletes
     Athlete.create!(first_name:             first_name,
                     last_name:              last_name,
                     email:                  email,
+                    year_in_school:         'First',
                     password:               password,
                     password_confirmation:  password)
   end
 
+  # make admin, president, etc. eventually for development
   Athlete.create!(first_name: 'Hamilton',
                  last_name: 'Little',
                  email: 'hamilton.little@gmail.com',

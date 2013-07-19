@@ -15,6 +15,7 @@ describe Athlete do
     it { should respond_to(:name) }
     it { should respond_to(:authenticate) }
     it { should respond_to(:remember_token) }
+    it { should respond_to(:year_in_school) }
   end
 
   describe "validations" do
@@ -99,8 +100,8 @@ describe Athlete do
 
     describe "email is unique" do
       let(:unique_athlete) { FactoryGirl.build(:athlete, email: "ex@example.com")}
-      let(:duplicate_athlete) { FactoryGirl.build(:athlete, email: "ex@example.com",
-                                                  first_name: "Danny", last_name: "Trejo") }
+      let(:duplicate_athlete) { FactoryGirl.build(:athlete, email: "ex@example.com", first_name:
+                                                  "Danny", last_name: "Trejo") }
       before { unique_athlete.save }
 
       it "should invalidate an athlete with a duplicate email" do

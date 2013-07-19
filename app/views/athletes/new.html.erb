@@ -14,13 +14,12 @@
     <%= f.label :email %>
     <%= f.text_field :email %>
 
-    <%# <%= f.label :year %>
-    <%# <%= f.radio_button :year, :First %>
-    <%# <%= f.radio_button :year, :Second %>
-    <%# <%= f.radio_button :year, :Third %>
-    <%# <%= f.radio_button :year, :Fourth %>
-    <%# <%= f.radio_button :year, 'Fifth or More' %>
-    <%# <%= f.radio_button :year, :Grad %>
+    <%= f.label :year_in_school %>
+    <div class='year_in_school_radios'>
+      <%= f.collection_radio_buttons :year_in_school, %w{First Second Third Fourth Fifth+ Grad}, :to_s, :to_s do |b| %>
+        <%= b.label(class: 'radio inline') { b.radio_button + b.text }%>
+      <% end %>
+    </div>
 
     <%= f.label :password %>
     <%= f.password_field :password %>
