@@ -37,6 +37,20 @@ describe "Sessions" do
       it "should redirect to the athlete roster page" do
         page.should show_roster_page
       end
+
+      it "should change the links on the navbar" do
+        page.should have_link("Edit Profile", href: '#')
+        page.should have_link("Sign Out", href: signout_path)
+      end
+
+      describe "followed by signout" do
+        before { click_link 'Sign Out' }
+
+        it "should sign the user out" do
+          page.should_not have_link("Edit Profile", href: '#')
+          page.should_not have_link("Sign Out", href: signout_path)
+        end
+      end
     end
   end
 end

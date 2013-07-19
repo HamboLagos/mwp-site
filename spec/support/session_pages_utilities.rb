@@ -13,6 +13,7 @@ module SessionPagesUtilities
   end
 
   def valid_sign_in(athlete)
+    visit signin_path
     fill_in 'email', with: athlete.email
     fill_in 'password', with: athlete.password
 

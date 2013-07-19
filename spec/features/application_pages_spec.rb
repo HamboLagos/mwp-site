@@ -12,7 +12,11 @@ describe "Application Pages" do
       page.should have_link("Cal Poly Men's Water Polo", href: root_path)
       page.should have_link("Schedule", href: '#')
       page.should have_link("Roster", href: '#')
-      page.should have_link("Administrativa", href: signin_path)
+      page.should have_link("Administrativa", href: '#')
+
+      # Dropdown 'Administrativa' items (not signed in)
+      click_link("Administrativa")
+      page.should have_link("Sign In", href: signin_path)
     end
   end
 end

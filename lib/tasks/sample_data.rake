@@ -18,6 +18,12 @@ def make_athletes
                     password:               password,
                     password_confirmation:  password)
   end
+
+  Athlete.create!(first_name: 'Hamilton',
+                 last_name: 'Little',
+                 email: 'hamilton.little@gmail.com',
+                 password: 'foobar',
+                 password_confirmation: 'foobar')
 end
 
 def make_posts

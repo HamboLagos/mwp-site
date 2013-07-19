@@ -16,7 +16,7 @@ describe "Post pages" do
       end
 
       it "should have the right links" do
-        page.should have_link("Join the Team", href: '#')
+        page.should have_link("How To Join the Team", href: '#')
         page.should have_link("Contact an Officer", href: '#')
         page.should have_link("View Season Schedule", href: '#')
       end

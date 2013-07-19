@@ -14,6 +14,7 @@ describe Athlete do
     it { should respond_to(:posts) }
     it { should respond_to(:name) }
     it { should respond_to(:authenticate) }
+    it { should respond_to(:remember_token) }
   end
 
   describe "validations" do
@@ -117,6 +118,19 @@ describe Athlete do
 
       it "should downcase! email when saving to the db" do
         Athlete.find_by(email: uppercase_email.email).should == uppercase_email
+      end
+    end
+
+    describe "remember token validations" do
+      let(:new_athlete) { FactoryGirl.build(:athlete) }
+
+      it "should not have a remember token before being saved" do
+        new_athlete.remember_token.should be_blank
+      end
+
+      it "should have a remember token after being saved to the db" do
+        new_athlete.save!
+        new_athlete.remember_token.should_not be_blank
       end
     end
   end

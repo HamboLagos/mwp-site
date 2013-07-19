@@ -4,7 +4,7 @@ class Athlete < ActiveRecord::Base
   has_many :posts
 
   before_validation { self.email.downcase! }
-  before_save { :create_remember_token }
+  before_create :create_remember_token
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -27,9 +27,17 @@ class Athlete < ActiveRecord::Base
     name == other
   end
 
+  def self.new_remember_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def self.encrypt(token)
+    Digest::SHA1.hexdigest(token.to_s)
+  end
+
   private
 
   def create_remember_token
-    self.remember_token = SecureRandom.urlsafe_base64
+    self.remember_token = Athlete.encrypt(Athlete.new_remember_token)
   end
 end

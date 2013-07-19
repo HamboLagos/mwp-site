@@ -13,7 +13,7 @@ MwpSite::Application.routes.draw do
   # sessions (authentication)
   resources :sessions, only: [:create]
   get '/signin' => 'sessions#new'
-  get '/signout' => 'sessions#destroy'
+  delete '/signout' => 'sessions#destroy'
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
