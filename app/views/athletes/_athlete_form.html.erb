@@ -1,0 +1,29 @@
+<%= form_for @athlete do |f| %>
+
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %>
+
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name %>
+
+  <%= f.label :email %>
+  <%= f.text_field :email %>
+
+  <%= f.label :year_in_school %>
+  <div class='year_in_school_radios'>
+    <%= f.collection_radio_buttons :year_in_school, %w{First Second Third Fourth Fifth+ Grad}, :to_s, :to_s do |b| %>
+      <%= b.label(class: 'radio inline') { b.radio_button + b.text }%>
+    <% end %>
+  </div>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+
+  <%= f.label 'Confirm Password' %>
+  <%= f.password_field :password_confirmation %>
+
+  <%= f.submit "Submit", class: 'btn btn-large btn-primary' %>
+
+<% end %>

@@ -56,4 +56,49 @@ describe "Athlete Pages" do
       end
     end
   end
+
+  describe "Editing an athlete (#edit and #update)" do
+    let(:athlete) { FactoryGirl.create(:athlete) }
+    let(:different_info) { FactoryGirl.build(:athlete, first_name: "Samuel", last_name: "Jackson",
+                                             year_in_school: "Fifth+", email: "foo@bar.com",
+                                             password: "foobar123",
+                                             password_confirmation: "foobar123") }
+    before { visit edit_athlete_path(athlete) }
+    it { should show_edit_athlete_page(athlete) }
+
+    describe "with invalid information" do
+
+      it "should tell the user about the errors" do
+        fill_in "athlete_password", with: "foobar"
+        fill_in "athlete_password_confirmation", with: "bazqux"
+        click_button "Submit"
+
+        page.should have_selector("div#error_explanation")
+      end
+    end
+
+    describe "with valid information" do
+      specify "Editing the athlete's info should push the changes to the db" do
+        edit_athlete_info(different_info)
+        athlete.reload.should == different_info
+      end
+
+      it "should show changes pending approval message" do
+        edit_athlete_info(different_info)
+        page.should have_content('changes')
+        page.should have_content('pending')
+        page.should have_content('approval')
+      end
+
+      describe "navitating to another page" do
+        before { edit_athlete_info(athlete) }
+
+        it "should remove the pending approval message" do
+          click_link "Cal Poly Men's Water Polo"
+
+          page.should_not have_content('pending')
+        end
+      end
+    end
+  end
 end

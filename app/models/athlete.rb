@@ -27,6 +27,15 @@ class Athlete < ActiveRecord::Base
     name == other
   end
 
+  def == other
+    return true if other.equal?(self)
+    return false unless other.kind_of?(self.class)
+    first_name == other.first_name &&
+      last_name == other.last_name &&
+      email == other.email &&                   # with unique emails, this is important check
+      year_in_school == other.year_in_school
+  end
+
   def self.new_remember_token
     SecureRandom.urlsafe_base64
   end
@@ -34,6 +43,7 @@ class Athlete < ActiveRecord::Base
   def self.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
   end
+
 
   private
 

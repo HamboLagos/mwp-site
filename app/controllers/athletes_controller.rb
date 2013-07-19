@@ -15,8 +15,18 @@ class AthletesController < ApplicationController
     end
   end
 
+  def edit
+    @athlete = Athlete.find_by(id: params[:id])
+  end
+
   def update
-    Athlete.find(params[:id]).update!(athlete_params)
+    @athlete = Athlete.find_by(id: params[:id])
+    if @athlete.update(athlete_params)
+      flash[:notice] = "The changes you made are pending the President's approval"
+      redirect_to roster_path
+    else
+      render 'edit'
+    end
   end
 
   def index
@@ -26,6 +36,6 @@ class AthletesController < ApplicationController
 
   def athlete_params
     params.require(:athlete).permit(:first_name, :last_name, :email,
-                                    :password, :password_confirmation)
+                                    :year_in_school, :password, :password_confirmation)
   end
 end
