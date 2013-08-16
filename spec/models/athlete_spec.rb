@@ -34,6 +34,11 @@ describe Athlete do
       it { should_not be_valid }
     end
 
+    describe "with missing year in school" do
+      before { athlete.year_in_school = nil }
+      it { should_not be_valid }
+    end
+
     describe "password validations" do
       describe "with missing password" do
         # password digested on build, need a new athlete which has never had
@@ -148,7 +153,7 @@ describe Athlete do
       let!(:post3) { FactoryGirl.create(:post, author: athlete) }
       let(:posts) { [post1, post2, post3] }
 
-      specify "should return a list of the athlete's posts" do
+      specify "Athlete#posts should return a list of the athlete's posts" do
         posts.each do |post|
           athlete.posts.should include(post)
         end

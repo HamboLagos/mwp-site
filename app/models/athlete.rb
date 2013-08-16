@@ -9,7 +9,7 @@ class Athlete < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: true
-
+  validates :year_in_school, presence: true
 
   def name
     "#{first_name} #{last_name}"
@@ -43,7 +43,6 @@ class Athlete < ActiveRecord::Base
   def self.encrypt(token)
     Digest::SHA1.hexdigest(token.to_s)
   end
-
 
   private
 

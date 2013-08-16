@@ -35,7 +35,6 @@ module AthletePagesUtilities
     end
   end
 
-
   def valid_sign_up(athlete)
     visit signup_path
     fill_in 'athlete_first_name',            with: athlete.first_name
@@ -50,6 +49,11 @@ module AthletePagesUtilities
 
   def invalid_sign_up
     visit signup_path
+    click_button "Submit"
+  end
+
+  def invalid_edit
+    fill_in "athlete_first_name", with: " "
     click_button "Submit"
   end
 
