@@ -53,7 +53,7 @@ module AthletePagesUtilities
   end
 
   def invalid_edit
-    fill_in "athlete_first_name", with: " "
+    fill_in "athlete_first_name", with: " " #missing first name invalidates athlete
     click_button "Submit"
   end
 

@@ -39,7 +39,7 @@ describe "Sessions" do
       end
 
       it "should change the links on the navbar" do
-        page.should have_link("Edit Profile", href: '#')
+        page.should have_link("Edit Profile", href: edit_athlete_path(athlete))
         page.should have_link("Sign Out", href: signout_path)
       end
 
