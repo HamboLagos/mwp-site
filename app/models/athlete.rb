@@ -10,6 +10,7 @@ class Athlete < ActiveRecord::Base
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :year_in_school, presence: true
+  validates :phone_number, presence: true
 
   def name
     "#{first_name} #{last_name}"

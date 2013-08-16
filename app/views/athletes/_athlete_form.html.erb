@@ -9,7 +9,7 @@
   <%= f.text_field :last_name %>
 
   <%= f.label :email %>
-  <%= f.text_field :email %>
+  <%= f.text_field :email, placeholder: "eggsample@calpoly.edu" %>
 
   <%= f.label :year_in_school %>
   <div class='year_in_school_radios'>
@@ -17,6 +17,9 @@
       <%= b.label(class: 'radio inline') { b.radio_button + b.text }%>
     <% end %>
   </div>
+
+  <%= f.label :phone_number %>
+  <%= f.text_field :phone_number, placeholder: "(987) 654-3210" %>
 
   <%= f.label :password %>
   <%= f.password_field :password %>

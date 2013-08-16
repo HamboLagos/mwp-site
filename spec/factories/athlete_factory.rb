@@ -4,6 +4,7 @@ FactoryGirl.define do
     last_name "Trejo"
     sequence(:email) { |n| "example_#{n}@cpmenswaterpolo.com" }
     year_in_school "First"
+    phone_number "(987) 654-3210"
     password "foobar"
     password_confirmation "foobar"
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130719011222) do
+ActiveRecord::Schema.define(version: 20130816220825) do
 
   create_table "athletes", force: true do |t|
     t.string   "first_name"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20130719011222) do
     t.string   "password_digest"
     t.string   "remember_token"
     t.string   "year_in_school"
+    t.string   "phone_number"
   end
 
   create_table "posts", force: true do |t|

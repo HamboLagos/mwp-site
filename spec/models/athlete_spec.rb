@@ -16,6 +16,7 @@ describe Athlete do
     it { should respond_to(:authenticate) }
     it { should respond_to(:remember_token) }
     it { should respond_to(:year_in_school) }
+    it { should respond_to(:phone_number) }
   end
 
   describe "validations" do
@@ -36,6 +37,11 @@ describe Athlete do
 
     describe "with missing year in school" do
       before { athlete.year_in_school = nil }
+      it { should_not be_valid }
+    end
+
+    describe "with missing phone number" do
+      before { athlete.phone_number = " " }
       it { should_not be_valid }
     end
 

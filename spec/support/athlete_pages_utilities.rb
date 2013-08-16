@@ -41,6 +41,7 @@ module AthletePagesUtilities
     fill_in 'athlete_last_name',             with: athlete.last_name
     fill_in 'athlete_email',                 with: athlete.email
     choose 'First'
+    fill_in 'athlete_phone_number',          with: athlete.phone_number
     fill_in 'athlete_password',              with: athlete.password
     fill_in 'athlete_password_confirmation', with: athlete.password
 
@@ -60,8 +61,9 @@ module AthletePagesUtilities
   def edit_athlete_info different_info
     fill_in "athlete_first_name",             with: different_info.first_name
     fill_in "athlete_last_name",              with: different_info.last_name
-    choose different_info.year_in_school
     fill_in "athlete_email",                  with: different_info.email
+    choose different_info.year_in_school
+    fill_in "athlete_phone_number",           with: athlete.phone_number
     fill_in "athlete_password",               with: different_info.password
     fill_in "athlete_password_confirmation",  with: different_info.password_confirmation
 

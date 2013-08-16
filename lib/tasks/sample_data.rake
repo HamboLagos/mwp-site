@@ -1,4 +1,4 @@
-namespace :db do
+  namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
     make_athletes
@@ -11,11 +11,14 @@ def make_athletes
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
     email = "example-#{n+1}@cpmwp.org"
+    year = "FIrst"
+    phone = "(987) 654-3210"
     password = "foobar"
     Athlete.create!(first_name:             first_name,
                     last_name:              last_name,
                     email:                  email,
-                    year_in_school:         'First',
+                    year_in_school:         year,
+                    phone_number:           phone,
                     password:               password,
                     password_confirmation:  password)
   end
@@ -24,6 +27,8 @@ def make_athletes
   Athlete.create!(first_name: 'Hamilton',
                  last_name: 'Little',
                  email: 'hamilton.little@gmail.com',
+                 year_in_school: 'Fifth+',
+                 phone_number: '(650) 793-3251',
                  password: 'foobar',
                  password_confirmation: 'foobar')
 end
