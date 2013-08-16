@@ -17,6 +17,7 @@ describe Athlete do
     it { should respond_to(:remember_token) }
     it { should respond_to(:year_in_school) }
     it { should respond_to(:phone_number) }
+    it { should respond_to(:admin?) }
   end
 
   describe "validations" do

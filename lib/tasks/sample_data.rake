@@ -7,7 +7,7 @@
 end
 
 def make_athletes
-  99.times do |n|
+  10.times do |n|
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
     email = "example-#{n+1}@cpmwp.org"
@@ -30,7 +30,8 @@ def make_athletes
                  year_in_school: 'Fifth+',
                  phone_number: '(650) 793-3251',
                  password: 'foobar',
-                 password_confirmation: 'foobar')
+                 password_confirmation: 'foobar',
+                 admin: true)
 end
 
 def make_posts
