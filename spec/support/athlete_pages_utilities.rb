@@ -29,10 +29,31 @@ module AthletePagesUtilities
     end
   end
 
-  RSpec::Matchers.define :show_roster_page do
-    match do |page|
-      page.should have_selector('h1', text: "Roster")
+  # the contents of the roster page change depending if the user is signed in
+  # page.should show_roster_page({ signed_in: true }, ath1, ath2, ath3)
+  #
+  # NOTE: options hash must be passed literally as first argument
+  #       ok to leave options hash out (defaults to not signed in view)
+  #       any number of athletes can be passed in, including none
+  # the following are all valid:
+  # page.should show_roster_page({ signed_in: false }, ath1, ath2, ath3)
+  # page.should show_roster_page(ath1, ath2, ath3)
+  # page.should show_roster_page()
+  RSpec::Matchers.define :show_roster_page do |options = {}, *athletes|
+  match do |page|
+    page.should have_selector('h1', text: "Roster")
+
+    is_signed_in = options[:signed_in] || false
+    athletes.each do |athlete|
+      page.should have_selector('li', text: athlete.name)
+      page.should have_selector('li', text: athlete.year_in_school)
+
+      if is_signed_in
+        page.should have_selector('li', text: athlete.email)
+        page.should have_selector('li', text: athlete.phone_number)
+      end
     end
+  end
   end
 
   def valid_sign_up(athlete)

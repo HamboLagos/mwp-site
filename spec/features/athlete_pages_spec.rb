@@ -1,5 +1,6 @@
 require 'spec_helper'
 include AthletePagesUtilities
+include SessionPagesUtilities
 
 describe "Athlete Pages" do
 
@@ -98,6 +99,40 @@ describe "Athlete Pages" do
 
           page.should_not have_content('pending')
         end
+      end
+    end
+  end
+
+  describe "Roster Page (index)" do
+    let!(:danny) { FactoryGirl.create(:athlete, first_name: "Danny", last_name: "Trejo") }
+    let!(:sammy) { FactoryGirl.create(:athlete, first_name: "Samuel", last_name: "Jackson") }
+    let!(:hillary) { FactoryGirl.create(:athlete, first_name: "Hillary", last_name: "Clinton") }
+
+
+    describe "to a non-signed-in user" do
+
+      before { visit roster_path }
+
+      it "should show basic roster information" do
+        page.should show_roster_page(danny, sammy, hillary)
+      end
+
+      it "should not show private information" do
+        page.should_not have_content(danny.email)
+        page.should_not have_content(sammy.email)
+        page.should_not have_content(hillary.email)
+        page.should_not have_content(danny.phone_number)
+        page.should_not have_content(sammy.phone_number)
+        page.should_not have_content(hillary.phone_number)
+      end
+    end
+
+    describe "after signing in" do
+      before { valid_sign_in(danny)}
+
+      it "should show both public and private data to fellow athletes" do
+        visit roster_path
+        page.should show_roster_page({ signed_in: true }, danny, sammy, hillary)
       end
     end
   end
