@@ -12,7 +12,7 @@ describe "Application Pages" do
     it "should have the correct static links" do
       page.should have_link("Cal Poly Men's Water Polo", href: root_path)
       page.should have_link("Schedule", href: '#')
-      page.should have_link("Roster", href: '#')
+      page.should have_link("Roster", href: roster_path)
       page.should have_link("Administrativa", href: '#')
     end
 

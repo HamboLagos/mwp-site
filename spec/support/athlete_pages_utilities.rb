@@ -31,7 +31,7 @@ module AthletePagesUtilities
 
   RSpec::Matchers.define :show_roster_page do
     match do |page|
-      page.should have_selector('h1', text:"#{Time.now.year} Roster")
+      page.should have_selector('h1', text: "Roster")
     end
   end
 

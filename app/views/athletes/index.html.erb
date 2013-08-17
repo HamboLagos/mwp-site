@@ -1,2 +1,13 @@
-<h1 class='text-center'><%= Time.now.year %> Roster</h1>
-
+<h1 class='text-center'>Roster</h1>
+<ul class='roster_list'>
+  <% Athlete.all.each do |athlete| %>
+    <li>
+      <ul class='roster_item span8'>
+        <li class='span2'><%= athlete.name %></li>
+        <li class='span1'><%= athlete.year_in_school %></li>
+        <li class='span2'><%= athlete.email %></li>
+        <li class='span2'><%= athlete.phone_number %></li>
+      </ul>
+    </li>
+  <% end %>
+</ul>
