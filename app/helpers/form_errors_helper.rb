@@ -13,7 +13,8 @@
 #   def create
 #     # most of create method ommitted...
 #     # if there was an error
-#       @errors ||= FormErrors.new("Invalid email format", "invalid email/password combination")
+#       @form_errors ||= FormErrors.new("Invalid email format", "invalid email/password
+#       combination")
 #       render 'new'
 #   end
 # end
@@ -34,6 +35,10 @@ module FormErrorsHelper
 
     def initialize(*errors)
       @errors = ErrorFields.new(errors)
+    end
+
+    def <<(error)
+      @errors << error
     end
   end
 

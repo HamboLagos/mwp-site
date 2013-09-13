@@ -56,6 +56,18 @@ module AthletePagesUtilities
   end
   end
 
+  RSpec::Matchers.define :show_change_password_page do
+    match do |page|
+      page.should have_selector('h1', text: 'Change Your Password')
+      page.should have_selector("input[name='old_password']")
+      page.should have_selector("input[name='old_password_confirmation']")
+      page.should have_selector("input[name='password']")
+      page.should have_selector("input[name='password_confirmation']")
+      page.should have_selector("input[value='Change Password']")
+    end
+  end
+
+
   def valid_sign_up(athlete)
     visit signup_path
     fill_in 'athlete_first_name',            with: athlete.first_name
@@ -91,4 +103,14 @@ module AthletePagesUtilities
     click_button "Submit"
   end
 
+  def invalid_password_change
+    click_button "Change Password"
+  end
+
+  def valid_password_change athlete
+    fill_in 'old_password',              with: athlete.password
+    fill_in 'old_password_confirmation', with: athlete.password
+    fill_in 'new_password',              with: athlete.password.reverse
+    fill_in 'new_password_confirmation', with: athlete.password.reverse
+  end
 end

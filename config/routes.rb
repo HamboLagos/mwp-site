@@ -8,12 +8,17 @@ MwpSite::Application.routes.draw do
   resources :athletes, only: [:create, :edit, :update, :destroy, :show]
   get '/roster' => 'athletes#index'
   get '/signup' => 'athletes#new'
+  get '/athletes/:id/change_password' => 'athletes#change_password',
+    as: :change_password
+  post '/athletes/:id/change_password' => 'athletes#commit_password_change',
+    as: :commit_password_change
 
 
   # sessions (authentication)
   resources :sessions, only: [:create]
   get '/signin' => 'sessions#new'
   delete '/signout' => 'sessions#destroy'
+
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

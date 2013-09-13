@@ -71,7 +71,8 @@ group :development, :test do
   # run guard with spring
   gem 'guard-spork'
 
-  gem 'spork-rails', github: 'railstutorial/spork-rails'
+  # gem 'spork-rails', github: 'railstutorial/spork-rails'
+  gem 'spork-rails', :github => 'sporkrb/spork-rails'
 
   gem 'childprocess'
 end

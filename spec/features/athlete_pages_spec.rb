@@ -101,6 +101,24 @@ describe "Athlete Pages" do
         end
       end
     end
+
+    describe "changing the athlete's password" do
+      before { click_link 'Change Password' }
+
+      it { should show_change_password_page }
+
+      describe "entering old password incorrectly" do
+        before { invalid_password_change }
+
+        it "should stay on the same page" do
+          page.should show_change_password_page
+        end
+
+        it "should tell the user about the errors" do
+          page.should have_selector("div#error_explanation")
+        end
+      end
+    end
   end
 
   describe "Roster Page (index)" do
