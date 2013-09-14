@@ -8,4 +8,8 @@ FactoryGirl.define do
     password "foobar"
     password_confirmation "foobar"
   end
+
+  factory :admin, parent: :athlete do
+    admin "true"
+  end
 end

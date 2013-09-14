@@ -60,12 +60,15 @@ describe "Athlete Pages" do
 
   describe "Editing athlete info (#edit and #update)" do
     let(:athlete) { FactoryGirl.create(:athlete, first_name: "Danny", last_name: "Trejo") }
-    before { visit edit_athlete_path(athlete) }
+    before do
+      valid_sign_in athlete
+      visit edit_athlete_path(athlete)
+    end
 
     it { should show_edit_athlete_page(athlete) }
 
-    describe "with invalid" do
-      describe "password" do
+    describe "with invalid info" do
+      describe "invalid password" do
         before { invalid_edit_no_password }
 
         it "should stay on the edit page" do
@@ -77,7 +80,7 @@ describe "Athlete Pages" do
         end
       end
 
-      describe "name" do
+      describe "invalid name" do
         before { invalid_edit_no_name(athlete) }
 
         it "should stay on the edit page" do

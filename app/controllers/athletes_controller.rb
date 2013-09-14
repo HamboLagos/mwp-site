@@ -1,5 +1,8 @@
 class AthletesController < ApplicationController
   include FormErrorsHelper
+  include SessionsHelper
+  include AuthorizationHelper
+
 
   def new
     @athlete = Athlete.new
@@ -17,21 +20,39 @@ class AthletesController < ApplicationController
   end
 
   def edit
-    @athlete = Athlete.find_by(id: params[:id])
+    #Authentication check
+    unless signed_in?
+      flash[:error] = 'You must be signed in to edit your profile'
+      redirect_to root_path
+    else
+      # Authorization check
+      unless current_athlete.authorized?(params[:id])
+        flash[:error] = 'You are only authorized to edit your own profile'
+        redirect_to roster_path
+      else
+        if current_athlete.admin? && Athlete.find_by(id: params[:id]) != current_athlete
+          flash.now[:notice] = "You are editing another player's profile"
+        end
+        @athlete = Athlete.find_by(id: params[:id])
+      end
+    end
+
   end
 
   def update
     @athlete = Athlete.find_by(id: params[:id])
 
-    if !@athlete.authenticate(params[:athlete][:password])
+    unless @athlete.authenticate(params[:athlete][:password])
       @athlete.errors.add(:password, 'entered does not match our records')
       @athlete.errors.add(:password, 'must be entered to confirm changes')
       render 'edit'
-    elsif @athlete.update(athlete_params)
-      flash[:notice] = "The changes you made are pending the President's approval"
-      redirect_to roster_path
     else
-      render 'edit'
+      if @athlete.update(athlete_params)
+        flash[:notice] = "The changes you made are pending the President's approval"
+        redirect_to roster_path
+      else
+        render 'edit'
+      end
     end
   end
 
