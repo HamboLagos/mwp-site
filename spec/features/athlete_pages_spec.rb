@@ -64,15 +64,29 @@ describe "Athlete Pages" do
 
     it { should show_edit_athlete_page(athlete) }
 
-    describe "with invalid information" do
-      before { invalid_edit }
+    describe "with invalid" do
+      describe "password" do
+        before { invalid_edit_no_password }
 
-      it "should stay on the edit page" do
-        page.should show_edit_athlete_page(athlete)
+        it "should stay on the edit page" do
+          page.should show_edit_athlete_page(athlete)
+        end
+
+        it "should tell the user about the errors" do
+          page.should have_selector("div#error_explanation")
+        end
       end
 
-      it "should tell the user about the errors" do
-        page.should have_selector("div#error_explanation")
+      describe "name" do
+        before { invalid_edit_no_name(athlete) }
+
+        it "should stay on the edit page" do
+          page.should show_edit_athlete_page(athlete)
+        end
+
+        it "should tell the user about the errors" do
+          page.should have_selector("div#error_explanation")
+        end
       end
     end
 
@@ -91,7 +105,7 @@ describe "Athlete Pages" do
         page.should have_content('approval')
       end
 
-      describe "navitating to another page" do
+      describe "navigating to another page" do
         before { edit_athlete_info(athlete) }
 
         it "should remove the pending approval message" do
@@ -107,7 +121,7 @@ describe "Athlete Pages" do
 
       it { should show_change_password_page }
 
-      describe "entering old password incorrectly" do
+      describe "with an error in the change password form" do
         before { invalid_password_change }
 
         it "should stay on the same page" do
@@ -116,6 +130,23 @@ describe "Athlete Pages" do
 
         it "should tell the user about the errors" do
           page.should have_selector("div#error_explanation")
+        end
+      end
+
+      describe "entering valid information into the form" do
+        before { valid_password_change(athlete) }
+
+        it "should alert the user of success" do
+          page.should have_content('successfully changed your password')
+        end
+
+        it "should redirect back to the edit profile page" do
+          page.should show_edit_athlete_page(athlete)
+        end
+
+        it "should push the changes to the db" do
+          new_password = athlete.password.reverse
+          athlete.reload.authenticate(new_password).should be_true
         end
       end
     end

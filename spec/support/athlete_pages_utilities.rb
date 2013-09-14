@@ -86,8 +86,16 @@ module AthletePagesUtilities
     click_button "Submit"
   end
 
-  def invalid_edit
+  def invalid_edit_no_name athlete
+    fill_in "athlete_password", with: athlete.password
+    fill_in "athlete_password_confirmation", with: athlete.password
     fill_in "athlete_first_name", with: " " #missing first name invalidates athlete
+    click_button "Submit"
+  end
+
+  def invalid_edit_no_password
+    fill_in "athlete_password", with: ' ' #password will not match records, invalidating change
+    fill_in "athlete_password_confirmation", with: ' '
     click_button "Submit"
   end
 
@@ -110,7 +118,9 @@ module AthletePagesUtilities
   def valid_password_change athlete
     fill_in 'old_password',              with: athlete.password
     fill_in 'old_password_confirmation', with: athlete.password
-    fill_in 'new_password',              with: athlete.password.reverse
-    fill_in 'new_password_confirmation', with: athlete.password.reverse
+    fill_in 'password',                  with: athlete.password.reverse
+    fill_in 'password_confirmation',     with: athlete.password.reverse
+
+    click_button "Change Password"
   end
 end
