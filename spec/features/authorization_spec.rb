@@ -7,8 +7,8 @@ describe "Authorization specs" do
   describe "Athlete pages" do
 
     describe "editing profile authorizations" do
-      let!(:athlete) { FactoryGirl.create(:athlete) }
-      let!(:admin) { FactoryGirl.create(:admin) }
+      let!(:athlete) { FactoryGirl.create(:athlete, first_name: 'Hillary', last_name: 'Clinton') }
+      let!(:admin) { FactoryGirl.create(:admin, first_name: 'Samuel', last_name: 'Jackson') }
       let!(:other) { FactoryGirl.create(:athlete) }
 
       describe "editing own profile" do
@@ -50,7 +50,7 @@ describe "Authorization specs" do
         end
 
         it "should be allowed" do
-          page.should show_edit_athlete_page(other)
+          page.should show_edit_athlete_page
         end
 
         it "should warn the admin what they are about to do" do

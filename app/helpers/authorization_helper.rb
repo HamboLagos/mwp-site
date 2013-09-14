@@ -6,6 +6,5 @@ module AuthorizationHelper
     def authorized?(request_id)
       self == Athlete.find_by(id: request_id) || self.admin?
     end
-
   end
 end

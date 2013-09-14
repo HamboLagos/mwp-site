@@ -65,7 +65,7 @@ describe "Athlete Pages" do
       visit edit_athlete_path(athlete)
     end
 
-    it { should show_edit_athlete_page(athlete) }
+    it { should show_edit_athlete_page }
 
     describe "with invalid info" do
       describe "invalid password" do
