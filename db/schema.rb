@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130816231326) do
+ActiveRecord::Schema.define(version: 20130915193249) do
 
   create_table "athletes", force: true do |t|
     t.string   "first_name"
@@ -35,5 +35,11 @@ ActiveRecord::Schema.define(version: 20130816231326) do
   end
 
   add_index "posts", ["athlete_id"], name: "index_posts_on_athlete_id", using: :btree
+
+  create_table "seasons", force: true do |t|
+    t.integer  "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
