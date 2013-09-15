@@ -18,6 +18,8 @@ describe Athlete do
     it { should respond_to(:year_in_school) }
     it { should respond_to(:phone_number) }
     it { should respond_to(:admin?) }
+    it { should respond_to(:seasons) }
+    it { should respond_to(:team_rosters) }
   end
 
   describe "validations" do
@@ -163,6 +165,39 @@ describe Athlete do
       specify "Athlete#posts should return a list of the athlete's posts" do
         posts.each do |post|
           athlete.posts.should include(post)
+        end
+      end
+    end
+  end
+
+  describe "seasons and team_rosters" do
+    it "should have no seasons by default" do
+      athlete.seasons.should be_empty
+    end
+
+    it "should have no team_rosters by default" do
+      athlete.team_rosters.should be_empty
+    end
+
+    describe "after creating some seasons and team rosters" do
+      let!(:season2013) { FactoryGirl.create(:season, year: 2013) }
+      let!(:season2014) { FactoryGirl.create(:season, year: 2014) }
+      let!(:season2015) { FactoryGirl.create(:season, year: 2015) }
+      let!(:seasons) { [season2013, season2014, season2015] }
+      let!(:team_roster1) { FactoryGirl.create(:team_roster, season: season2013, athlete: athlete) }
+      let!(:team_roster2) { FactoryGirl.create(:team_roster, season: season2014, athlete: athlete) }
+      let!(:team_roster3) { FactoryGirl.create(:team_roster, season: season2015, athlete: athlete) }
+      let!(:team_rosters) { [team_roster1, team_roster2, team_roster3] }
+
+      specify "athlete#seasons should return a list of the athlete's seasons" do
+        seasons.each do |season|
+          athlete.seasons.should include(season)
+        end
+      end
+
+      specify "athlete#team_rosters should return a list of the athlete's team_rosters" do
+        team_rosters.each do |roster|
+          athlete.team_rosters.should include(roster)
         end
       end
     end

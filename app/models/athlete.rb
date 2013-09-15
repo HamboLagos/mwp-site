@@ -2,6 +2,8 @@ class Athlete < ActiveRecord::Base
   has_secure_password
 
   has_many :posts
+  has_many :team_rosters
+  has_many :seasons, through: :team_rosters
 
   before_validation { self.email.downcase! }
   before_create :create_remember_token
