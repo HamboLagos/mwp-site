@@ -1,6 +1,7 @@
 require 'spec_helper'
 include AthletePagesUtilities
 include SessionPagesUtilities
+include PostPagesUtilities
 
 describe "Authorization specs" do
 
@@ -59,5 +60,23 @@ describe "Authorization specs" do
         end
       end
     end
+  end
+
+  describe "Season pages" do
+    let!(:athlete) { FactoryGirl.create(:athlete) }
+
+    describe "visiting season#new" do
+      before do
+        valid_sign_in athlete
+        visit new_season_path
+      end
+
+      it  "should be prohibited to a non-admin" do
+        page.should show_posts_page
+        page.should have_selector('div.alert')
+        page.should have_content('You must have administrative privelages')
+      end
+    end
+
   end
 end

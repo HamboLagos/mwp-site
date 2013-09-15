@@ -19,6 +19,9 @@ MwpSite::Application.routes.draw do
   get '/signin' => 'sessions#new'
   delete '/signout' => 'sessions#destroy'
 
+  #seasons
+  resources :seasons
+
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
