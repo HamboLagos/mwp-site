@@ -20,6 +20,8 @@ describe Athlete do
     it { should respond_to(:admin?) }
     it { should respond_to(:seasons) }
     it { should respond_to(:team_rosters) }
+    it { should respond_to(:tournaments) }
+    it { should respond_to(:travel_rosters) }
   end
 
   describe "validations" do
@@ -198,6 +200,42 @@ describe Athlete do
       specify "athlete#team_rosters should return a list of the athlete's team_rosters" do
         team_rosters.each do |roster|
           athlete.team_rosters.should include(roster)
+        end
+      end
+    end
+  end
+
+  describe "tournaments and travel_rosters" do
+    it "should have no tournaments by default" do
+      athlete.tournaments.should be_empty
+    end
+
+    it "should have no travel_rosters by default" do
+      athlete.travel_rosters.should be_empty
+    end
+
+    describe "after creating some tournaments and travel rosters" do
+      let!(:tournament1) { FactoryGirl.create(:tournament) }
+      let!(:tournament2) { FactoryGirl.create(:tournament) }
+      let!(:tournament3) { FactoryGirl.create(:tournament) }
+      let!(:tournaments) { [tournament1, tournament2, tournament3] }
+      let!(:travel_roster1) { FactoryGirl.create(:travel_roster, tournament: tournament1,
+                                                 athlete: athlete) }
+      let!(:travel_roster2) { FactoryGirl.create(:travel_roster, tournament: tournament2,
+                                                 athlete: athlete) }
+      let!(:travel_roster3) { FactoryGirl.create(:travel_roster, tournament: tournament3,
+                                                 athlete: athlete) }
+      let!(:travel_rosters) { [travel_roster1, travel_roster2, travel_roster3] }
+
+      specify "athlete#tournaments should return a list of the athlete's tournaments" do
+        tournaments.each do |tournament|
+          athlete.tournaments.should include(tournament)
+        end
+      end
+
+      specify "athlete#travel_rosters should return a list of the athlete's travel_rosters" do
+        travel_rosters.each do |roster|
+          athlete.travel_rosters.should include(roster)
         end
       end
     end

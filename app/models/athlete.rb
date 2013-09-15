@@ -4,6 +4,8 @@ class Athlete < ActiveRecord::Base
   has_many :posts
   has_many :team_rosters
   has_many :seasons, through: :team_rosters
+  has_many :travel_rosters
+  has_many :tournaments, through: :travel_rosters
 
   before_validation { self.email.downcase! }
   before_create :create_remember_token
