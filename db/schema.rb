@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130915212320) do
+ActiveRecord::Schema.define(version: 20130915222035) do
 
   create_table "athletes", force: true do |t|
     t.string   "first_name"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20130915212320) do
     t.string   "phone_number"
     t.boolean  "admin",           default: false
   end
+
+  add_index "athletes", ["email"], name: "index_athletes_on_email", unique: true, using: :btree
 
   create_table "posts", force: true do |t|
     t.integer  "athlete_id"
@@ -42,6 +44,8 @@ ActiveRecord::Schema.define(version: 20130915212320) do
     t.datetime "updated_at"
   end
 
+  add_index "seasons", ["year"], name: "index_seasons_on_year", unique: true, using: :btree
+
   create_table "team_rosters", force: true do |t|
     t.integer  "athlete_id"
     t.integer  "season_id"
@@ -57,6 +61,9 @@ ActiveRecord::Schema.define(version: 20130915212320) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tournaments", ["start_date", "end_date"], name:
+    "index_tournaments_on_start_date_and_end_date", unique: true, using: :btree
 
   create_table "travel_rosters", force: true do |t|
     t.integer  "athlete_id"

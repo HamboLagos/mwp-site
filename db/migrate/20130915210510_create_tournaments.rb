@@ -3,8 +3,8 @@ class CreateTournaments < ActiveRecord::Migration
     create_table :tournaments do |t|
       t.integer :season_id
       t.string :location
-      t.date :start_date
-      t.date :end_date
+      t.date :start_date, unique: true
+      t.date :end_date, unique: true
 
       t.timestamps
     end
