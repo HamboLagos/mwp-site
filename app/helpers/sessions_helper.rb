@@ -28,4 +28,8 @@ module SessionsHelper
     self.current_athlete = nil
     cookies.delete(:remember_token)
   end
+
+  def admin?
+    self.current_athlete.admin?
+  end
 end

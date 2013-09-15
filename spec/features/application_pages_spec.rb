@@ -18,7 +18,7 @@ describe "Application Pages" do
 
     describe "when not signed in" do
 
-      it "Admin should only have the link to sign in" do
+      it "administrative tab should only have the link to sign in" do
         click_link("Administrativa")
         page.should have_link("Sign In", href: signin_path)
       end
@@ -26,12 +26,24 @@ describe "Application Pages" do
 
     describe "when signed in" do
       let(:athlete) { FactoryGirl.create(:athlete) }
-      before { valid_sign_in(athlete) }
+      before { valid_sign_in athlete }
 
-      specify "Admin should show proper administrative links" do
+      specify "administrative tab should show proper links" do
         click_link("Administrativa")
         page.should have_link("Edit Profile", href: edit_athlete_path(athlete))
         page.should have_link("Sign Out", href: signout_path)
+      end
+
+      describe "as admin" do
+        let(:admin) { FactoryGirl.create(:admin) }
+        before { valid_sign_in admin }
+
+        specify "administrative tab should show proper links" do
+          click_link("Administrativa")
+          page.should have_link("Edit Profile", href: edit_athlete_path(admin))
+          page.should have_link("Create New Season", href: new_season_path)
+          page.should have_link("Sign Out", href: signout_path)
+        end
       end
     end
   end
