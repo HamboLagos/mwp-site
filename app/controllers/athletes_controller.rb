@@ -3,7 +3,6 @@ class AthletesController < ApplicationController
   include SessionsHelper
   include AuthorizationHelper
 
-
   def new
     @athlete = Athlete.new
   end
@@ -100,7 +99,11 @@ class AthletesController < ApplicationController
   def athlete_params
     params.require(:athlete).permit(:first_name, :last_name, :email,
                                     :year_in_school, :phone_number, :password,
-                                    :password_confirmation)
+                                    :password_confirmation, season_ids: [])
+  end
+
+  def season_params
+    params.require(:athlete).permit(:seasons)
   end
 
   def change_password_params

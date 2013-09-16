@@ -25,6 +25,7 @@ module AthletePagesUtilities
       page.should have_selector("input[name='athlete[year_in_school]']")
       page.should have_selector("input[name='athlete[password]']")
       page.should have_selector("input[name='athlete[password_confirmation]']")
+      page.should have_selector("input[name='athlete[season_ids][]']")
       page.should have_selector("input[value='Submit']")
     end
   end
@@ -77,6 +78,9 @@ module AthletePagesUtilities
     fill_in 'athlete_phone_number',          with: athlete.phone_number
     fill_in 'athlete_password',              with: athlete.password
     fill_in 'athlete_password_confirmation', with: athlete.password
+    athlete.seasons.each do |season|
+      check season.year.to_s
+    end
 
     click_button "Submit"
   end

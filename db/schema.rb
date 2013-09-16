@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130915222035) do
+ActiveRecord::Schema.define(version: 20130915235621) do
 
   create_table "athletes", force: true do |t|
     t.string   "first_name"
@@ -23,7 +23,8 @@ ActiveRecord::Schema.define(version: 20130915222035) do
     t.string   "remember_token"
     t.string   "year_in_school"
     t.string   "phone_number"
-    t.boolean  "admin",           default: false
+    t.boolean  "admin",            default: false
+    t.boolean  "pending_approval", default: true
   end
 
   add_index "athletes", ["email"], name: "index_athletes_on_email", unique: true, using: :btree

@@ -11,6 +11,11 @@ describe Season do
     it { should respond_to(:year) }
     it { should respond_to(:athletes) }
     it { should respond_to(:team_rosters) }
+    it { should respond_to(:year_as_string) }
+
+    specify "#year_as_string should return string rep. of year" do
+      season.year_as_string.should == season.year.to_s
+    end
   end
 
   describe "validations" do

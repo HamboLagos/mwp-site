@@ -5,4 +5,8 @@ class Season < ActiveRecord::Base
 
   validates :year, uniqueness: true
 
+  def year_as_string
+    self.year.to_s
+  end
+
 end

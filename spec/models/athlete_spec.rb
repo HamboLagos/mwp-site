@@ -150,6 +150,14 @@ describe Athlete do
         new_athlete.remember_token.should_not be_blank
       end
     end
+
+    describe "seasons validations" do
+      let(:athlete_no_seasons) { FactoryGirl.create(:athlete) }
+      it "should not be valid without a season"do
+        athlete_no_seasons.seasons = []
+        athlete_no_seasons.should_not be_valid
+      end
+    end
   end
 
   describe "Posts" do
@@ -173,18 +181,14 @@ describe Athlete do
   end
 
   describe "seasons and team_rosters" do
-    it "should have no seasons by default" do
-      athlete.seasons.should be_empty
-    end
-
-    it "should have no team_rosters by default" do
-      athlete.team_rosters.should be_empty
-    end
 
     describe "after creating some seasons and team rosters" do
-      let!(:season2013) { FactoryGirl.create(:season, year: 2013) }
-      let!(:season2014) { FactoryGirl.create(:season, year: 2014) }
-      let!(:season2015) { FactoryGirl.create(:season, year: 2015) }
+      #athlete must have seasons and team rosters in order to be valid, so we are just checking
+      #that we can add more here
+
+      let!(:season2013) { FactoryGirl.create(:season) }
+      let!(:season2014) { FactoryGirl.create(:season) }
+      let!(:season2015) { FactoryGirl.create(:season) }
       let!(:seasons) { [season2013, season2014, season2015] }
       let!(:team_roster1) { FactoryGirl.create(:team_roster, season: season2013, athlete: athlete) }
       let!(:team_roster2) { FactoryGirl.create(:team_roster, season: season2014, athlete: athlete) }
@@ -192,12 +196,14 @@ describe Athlete do
       let!(:team_rosters) { [team_roster1, team_roster2, team_roster3] }
 
       specify "athlete#seasons should return a list of the athlete's seasons" do
+        athlete.reload
         seasons.each do |season|
           athlete.seasons.should include(season)
         end
       end
 
       specify "athlete#team_rosters should return a list of the athlete's team_rosters" do
+        athlete.reload
         team_rosters.each do |roster|
           athlete.team_rosters.should include(roster)
         end

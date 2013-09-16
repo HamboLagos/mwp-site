@@ -16,6 +16,9 @@ class Athlete < ActiveRecord::Base
   validates :year_in_school, presence: true
   validates :phone_number, presence: true
 
+  #the next two go hand-in-hand, checking for only one or the other may be enough
+  validates :seasons, presence: true
+
   def name
     "#{first_name} #{last_name}"
   end

@@ -1,12 +1,24 @@
   namespace :db do
   desc "Fill database with sample data"
   task populate: :environment do
-    make_athletes
+   seasons = make_seasons
+    make_athletes(seasons)
     make_posts
   end
 end
 
-def make_athletes
+def make_seasons
+  seasons = []
+
+  3.times do |n|
+    year = 2013+n
+    seasons << Season.create!(year: year)
+  end
+
+  seasons
+end
+
+def make_athletes(seasons)
   10.times do |n|
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
@@ -19,17 +31,19 @@ def make_athletes
                     email:                  email,
                     year_in_school:         year,
                     phone_number:           phone,
+                    seasons:                seasons,
                     password:               password,
                     password_confirmation:  password)
   end
 
   # make admin, president, etc. eventually for development
-  Athlete.create!(first_name: 'Hamilton',
-                 last_name: 'Little',
-                 email: 'hamilton.little@gmail.com',
-                 year_in_school: 'Fifth+',
-                 phone_number: '(650) 793-3251',
-                 password: 'foobar',
+  Athlete.create!(first_name:           'Hamilton',
+                 last_name:             'Little',
+                 email:                 'hamilton.little@gmail.com',
+                 year_in_school:        'Fifth+',
+                 phone_number:          '(650) 793-3251',
+                 seasons:               seasons,
+                 password:              'foobar',
                  password_confirmation: 'foobar',
                  admin: true)
 end

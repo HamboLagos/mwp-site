@@ -7,6 +7,10 @@ FactoryGirl.define do
     phone_number "(987) 654-3210"
     password "foobar"
     password_confirmation "foobar"
+
+    after(:build) do |athlete, evaluator|
+      athlete.seasons << FactoryGirl.create(:season)
+    end
   end
 
   factory :admin, parent: :athlete do

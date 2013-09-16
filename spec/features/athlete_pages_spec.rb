@@ -46,6 +46,18 @@ describe "Athlete Pages" do
         page.should have_content('approval')
       end
 
+      describe "the default poperties" do
+        before { valid_sign_up(athlete) }
+
+        it "should not be admin" do
+          athlete.should_not be_admin
+        end
+
+        it "should not be approved" do
+          athlete.should be_pending_approval
+        end
+      end
+
       describe "navigating to another page" do
         before { valid_sign_up(athlete) }
 

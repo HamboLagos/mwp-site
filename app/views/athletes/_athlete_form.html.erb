@@ -11,6 +11,9 @@
   <%= f.label :email %>
   <%= f.text_field :email, placeholder: "eggsample@calpoly.edu" %>
 
+  <%= f.label :phone_number %>
+  <%= f.text_field :phone_number, placeholder: "(987) 654-3210" %>
+
   <%= f.label :year_in_school %>
   <div class='year_in_school_radios'>
     <%= f.collection_radio_buttons :year_in_school, %w{First Second Third Fourth Fifth+ Grad}, :to_s, :to_s do |b| %>
@@ -18,8 +21,12 @@
     <% end %>
   </div>
 
-  <%= f.label :phone_number %>
-  <%= f.text_field :phone_number, placeholder: "(987) 654-3210" %>
+  <%= f.label :select_seasons %>
+  <div class='season_radios'>
+    <%= f.collection_check_boxes :season_ids, Season.all, :id, :year_as_string do |b| %>
+      <%= b.label(class: 'checkbox inline') { b.check_box + b.text }%>
+    <% end %>
+  </div>
 
   <%= f.label :password %>
   <%= f.password_field :password %>
