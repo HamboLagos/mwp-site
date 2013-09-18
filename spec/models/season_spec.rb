@@ -12,6 +12,7 @@ describe Season do
     it { should respond_to(:athletes) }
     it { should respond_to(:team_rosters) }
     it { should respond_to(:year_as_string) }
+    it { should respond_to(:set_as_current_season) }
 
     specify "#year_as_string should return string rep. of year" do
       season.year_as_string.should == season.year.to_s
@@ -26,6 +27,25 @@ describe Season do
       it "should invalidate the non-unique year" do
         season.should be_valid
         season_copy.should_not be_valid
+      end
+    end
+
+    describe "current season validations" do
+      let!(:first_season) { FactoryGirl.create(:season) }
+      let!(:second_season) { FactoryGirl.create(:season) }
+
+      specify "the newest created season should be the current season by default" do
+        second_season.should be_current
+        first_season.reload.should_not be_current
+      end
+
+      describe "manually changing the current season" do
+        before { first_season.set_as_current_season }
+
+        it "should reflect the change in the db" do
+          second_season.reload.should_not be_current
+          first_season.should be_current
+        end
       end
     end
   end

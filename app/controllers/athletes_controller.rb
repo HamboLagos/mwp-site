@@ -8,7 +8,7 @@ class AthletesController < ApplicationController
   end
 
   def create
-    @athlete = Athlete.new(athlete_params)
+    @athlete = Athlete.new(new_athlete_params)
     if @athlete.save
       flash[:notice] = "Welcome #{@athlete.name}. Your acceptance to the Team Roster is pending " +
         "the President's approval"
@@ -29,7 +29,7 @@ class AthletesController < ApplicationController
         flash[:error] = 'You are only authorized to edit your own profile'
         redirect_to roster_path
       else
-        if current_athlete.admin? && Athlete.find_by(id: params[:id]) != current_athlete
+        if admin? && Athlete.find_by(id: params[:id]) != current_athlete
           flash.now[:notice] = "You are editing another player's profile"
         end
         @athlete = Athlete.find_by(id: params[:id])
@@ -41,17 +41,11 @@ class AthletesController < ApplicationController
   def update
     @athlete = Athlete.find_by(id: params[:id])
 
-    unless @athlete.authenticate(params[:athlete][:password])
-      @athlete.errors.add(:password, 'entered does not match our records')
-      @athlete.errors.add(:password, 'must be entered to confirm changes')
-      render 'edit'
+    if @athlete.update(edit_athlete_params)
+      flash[:notice] = "The changes you made are pending the President's approval"
+      redirect_to roster_path
     else
-      if @athlete.update(athlete_params)
-        flash[:notice] = "The changes you made are pending the President's approval"
-        redirect_to roster_path
-      else
-        render 'edit'
-      end
+      render 'edit'
     end
   end
 
@@ -96,10 +90,15 @@ class AthletesController < ApplicationController
 
   private
 
-  def athlete_params
+  def new_athlete_params
     params.require(:athlete).permit(:first_name, :last_name, :email,
                                     :year_in_school, :phone_number, :password,
                                     :password_confirmation, season_ids: [])
+  end
+
+  def edit_athlete_params
+    params.require(:athlete).permit(:first_name, :last_name, :email,
+                                    :year_in_school, :phone_number, season_ids: [])
   end
 
   def season_params

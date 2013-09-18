@@ -25,4 +25,5 @@ class SeasonsController < ApplicationController
   def season_params
     params.require(:season).permit(:year)
   end
+
 end

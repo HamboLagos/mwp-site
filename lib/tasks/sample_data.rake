@@ -11,7 +11,7 @@ def make_seasons
   seasons = []
 
   3.times do |n|
-    year = 2013+n
+    year = 2011+n
     seasons << Season.create!(year: year)
   end
 

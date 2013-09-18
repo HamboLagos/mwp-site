@@ -5,8 +5,23 @@ class Season < ActiveRecord::Base
 
   validates :year, uniqueness: true
 
+  # newest created season should be current by default
+  before_create(on: :create) do |season|
+    Season.all.each do |s|
+      s.update!(current: false)
+    end
+    season.current = true
+  end
+
   def year_as_string
     self.year.to_s
+  end
+
+  def set_as_current_season
+    Season.all.each do |s|
+      s.update!(current: false)
+    end
+    self.update!(current: true)
   end
 
 end

@@ -23,8 +23,6 @@ module AthletePagesUtilities
       page.should have_selector("input[name='athlete[email]']",
                                 text: athlete.nil? ? "" : athlete.email)
       page.should have_selector("input[name='athlete[year_in_school]']")
-      page.should have_selector("input[name='athlete[password]']")
-      page.should have_selector("input[name='athlete[password_confirmation]']")
       page.should have_selector("input[name='athlete[season_ids][]']")
       page.should have_selector("input[value='Submit']")
     end
@@ -90,16 +88,8 @@ module AthletePagesUtilities
     click_button "Submit"
   end
 
-  def invalid_edit_no_name athlete
-    fill_in "athlete_password", with: athlete.password
-    fill_in "athlete_password_confirmation", with: athlete.password
+  def invalid_edit athlete
     fill_in "athlete_first_name", with: " " #missing first name invalidates athlete
-    click_button "Submit"
-  end
-
-  def invalid_edit_no_password
-    fill_in "athlete_password", with: ' ' #password will not match records, invalidating change
-    fill_in "athlete_password_confirmation", with: ' '
     click_button "Submit"
   end
 
@@ -109,8 +99,6 @@ module AthletePagesUtilities
     fill_in "athlete_email",                  with: different_info.email
     choose different_info.year_in_school
     fill_in "athlete_phone_number",           with: athlete.phone_number
-    fill_in "athlete_password",               with: different_info.password
-    fill_in "athlete_password_confirmation",  with: different_info.password_confirmation
 
     click_button "Submit"
   end

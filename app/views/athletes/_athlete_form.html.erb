@@ -28,11 +28,13 @@
     <% end %>
   </div>
 
-  <%= f.label :password %>
-  <%= f.password_field :password %>
+  <% unless params[:id] %>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
 
-  <%= f.label 'Confirm Password' %>
-  <%= f.password_field :password_confirmation %>
+    <%= f.label 'Confirm Password' %>
+    <%= f.password_field :password_confirmation %>
+  <% end %>
 
   <%= f.submit "Submit", class: 'btn btn-large btn-primary' %>
 

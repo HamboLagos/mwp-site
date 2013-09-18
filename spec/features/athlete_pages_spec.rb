@@ -80,28 +80,14 @@ describe "Athlete Pages" do
     it { should show_edit_athlete_page }
 
     describe "with invalid info" do
-      describe "invalid password" do
-        before { invalid_edit_no_password }
+      before { invalid_edit(athlete) }
 
-        it "should stay on the edit page" do
-          page.should show_edit_athlete_page(athlete)
-        end
-
-        it "should tell the user about the errors" do
-          page.should have_selector("div#error_explanation")
-        end
+      it "should stay on the edit page" do
+        page.should show_edit_athlete_page(athlete)
       end
 
-      describe "invalid name" do
-        before { invalid_edit_no_name(athlete) }
-
-        it "should stay on the edit page" do
-          page.should show_edit_athlete_page(athlete)
-        end
-
-        it "should tell the user about the errors" do
-          page.should have_selector("div#error_explanation")
-        end
+      it "should tell the user about the errors" do
+        page.should have_selector("div#error_explanation")
       end
     end
 
