@@ -24,4 +24,8 @@ class Season < ActiveRecord::Base
     self.update!(current: true)
   end
 
+  def self.current_season
+    @current_season ||= Season.find_by(current: true)
+  end
+
 end

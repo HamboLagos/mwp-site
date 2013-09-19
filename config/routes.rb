@@ -20,7 +20,10 @@ MwpSite::Application.routes.draw do
   delete '/signout' => 'sessions#destroy'
 
   #seasons
-  resources :seasons
+  resources :seasons, only: [:new, :create]
+
+  #tournaments
+  resources :tournaments, only: [:new, :create]
 
 
   # You can have the root of your site routed with "root"

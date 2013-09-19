@@ -22,7 +22,7 @@
   </div>
 
   <%= f.label :select_seasons %>
-  <div class='season_radios'>
+  <div class='season_check_boxes'>
     <%= f.collection_check_boxes :season_ids, Season.all, :id, :year_as_string do |b| %>
       <%= b.label(class: 'checkbox inline') { b.check_box + b.text }%>
     <% end %>

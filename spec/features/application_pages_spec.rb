@@ -31,8 +31,11 @@ describe "Application Pages" do
       specify "administrative tab should show proper links" do
         click_link("Administrativa")
         page.should have_link("Edit Profile", href: edit_athlete_path(athlete))
+        page.should_not have_link("Create New Season")
+        page.should_not have_link("Create New Tournament")
         page.should have_link("Sign Out", href: signout_path)
       end
+
 
       describe "as admin" do
         let(:admin) { FactoryGirl.create(:admin) }
@@ -42,6 +45,7 @@ describe "Application Pages" do
           click_link("Administrativa")
           page.should have_link("Edit Profile", href: edit_athlete_path(admin))
           page.should have_link("Create New Season", href: new_season_path)
+          page.should have_link("Create New Tournament", href: new_tournament_path)
           page.should have_link("Sign Out", href: signout_path)
         end
       end

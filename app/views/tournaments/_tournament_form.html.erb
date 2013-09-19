@@ -1,0 +1,24 @@
+<%= form_for @tournament do |f| %>
+
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div>Current Season is: <%= Season.current_season.year_as_string %></div>
+  <%= f.hidden_field :season_id, value: Season.current_season.id %>
+  <%# <%= f.label :select_season %>
+  <!-- <div class='season_radios'> -->
+    <%# <%= f.collection_radio_buttons :season_id, Season.all, :id, :year_as_string do |b| %>
+      <%#   <%= b.label(class: 'radio inline') { b.radio_button + b.text }%>
+      <%# <% end %>
+    <!-- </div> -->
+
+  <%= f.label :location %>
+  <%= f.text_field :location, placeholder: "Cal Poly, UCSD, UCLA..." %>
+
+  <%= f.label :start_date %>
+  <%= f.date_select :start_date %>
+
+  <%= f.label :end_date %>
+  <%= f.date_select :end_date %>
+
+  <%= f.submit "Submit", class: 'btn btn-large btn-primary' %>
+<% end %>

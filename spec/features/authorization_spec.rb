@@ -77,6 +77,22 @@ describe "Authorization specs" do
         page.should have_content('You must have administrative privelages')
       end
     end
+  end
 
+  describe "Tournament pages" do
+    let!(:athlete) { FactoryGirl.create(:athlete) }
+
+    describe "visiting tournament#new" do
+      before do
+        valid_sign_in athlete
+        visit new_tournament_path
+      end
+
+      it "should be prohibited to a non-admin" do
+        page.should show_posts_page
+        page.should have_selector('div.alert')
+        page.should have_content('You must have administrative privelages')
+      end
+    end
   end
 end

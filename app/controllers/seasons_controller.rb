@@ -2,7 +2,7 @@ class SeasonsController < ApplicationController
   include SessionsHelper
 
   def new
-    unless current_athlete.admin?
+    unless admin?
       flash[:alert] = "You must have administrative privelages to create a new season"
       redirect_to root_path
     else

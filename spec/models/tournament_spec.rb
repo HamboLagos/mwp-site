@@ -11,19 +11,12 @@ describe Tournament do
     it { should respond_to(:start_date) }
     it { should respond_to(:end_date) }
     it { should respond_to(:season) }
+    it { should respond_to(:location) }
     it { should respond_to(:athletes) }
     it { should respond_to(:travel_rosters) }
   end
 
   describe "validations" do
-
-    describe "with missing season" do
-      before { tournament.season = nil }
-
-      it "should not be valid" do
-        tournament.should_not be_valid
-      end
-    end
 
     describe "with missing start_date" do
       before { tournament.start_date = nil }
@@ -56,6 +49,14 @@ describe Tournament do
       it "should invalidate the non-unique starting date tournament" do
         tournament.should be_valid
         tournament_copy.should_not be_valid
+      end
+    end
+
+    describe "with missing location" do
+      before { tournament.location = nil }
+
+      it "should not be valid" do
+        tournament.should_not be_valid
       end
     end
   end

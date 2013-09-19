@@ -23,6 +23,7 @@
         <% if admin? %>
           <li class="divider"></li>
           <li><%= link_to "Create New Season", new_season_path %></li>
+          <li><%= link_to "Create New Tournament", new_tournament_path %></li>
         <% end %>
         <li class="divider"></li>
         <li><%= link_to "Sign Out", signout_path, method: "delete" %></li>
