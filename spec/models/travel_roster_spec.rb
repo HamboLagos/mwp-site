@@ -11,4 +11,24 @@ describe TravelRoster do
     it { should respond_to(:athlete) }
     it { should respond_to(:tournament) }
   end
+
+  describe "validations" do
+    describe "with missing athlete" do
+      before { travel_roster.athlete = nil }
+
+      it "should be invalid" do
+        travel_roster.should_not be_valid
+      end
+    end
+
+    # spec removed due to error when creating tournament
+    # see app/model/travel_roster.rb for details
+    # describe "with missing tournament" do
+    #   before { travel_roster.tournament = nil }
+
+    #   it "should be invalid" do
+    #     travel_roster.should_not be_valid
+    #   end
+    # end
+  end
 end

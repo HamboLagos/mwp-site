@@ -1,0 +1,18 @@
+<h1 class='text-center'><%= "#{@tournament.season.year} #{@tournament.location} " %> Tournament</h1>
+<h3 class='text-center'>
+  <%= "#{@tournament.start_date.strftime("%A, %B %-d %Y")} " %>
+  through<%= " #{@tournament.end_date.strftime("%A, %B %-d %Y")}" %>
+</h3>
+<div class='tournament_listing span8'>
+  <ul class='tournament_list'>
+    <% @tournament.athletes.each do |athlete| %>
+      <li>
+        <ul class='tournament_item span5'>
+          <li class='span2'><%= athlete.name %></li>
+          <li class='span2'><%= athlete.phone_number %></li>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+</div>
+

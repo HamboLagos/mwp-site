@@ -7,6 +7,7 @@ class TournamentsController < ApplicationController
       redirect_to root_path
     else
       @tournament = Tournament.new
+      @current_season_athletes = Athlete.current_season_athletes
     end
   end
 
@@ -16,15 +17,20 @@ class TournamentsController < ApplicationController
       flash[:notice] = "You have created a new tournament"
       redirect_to roster_path
     else
+      @current_season_athletes = Athlete.current_season_athletes
       render 'new'
     end
+  end
+
+  def show
+    @tournament = Tournament.find(params[:id])
   end
 
   private
 
   def tournament_params
-    params.require(:tournament).permit(:season_id, :location, :start_date, :end_date)
-    # , athlete_ids: [])
+    params.require(:tournament).permit(:season_id, :location,
+                                       :start_date, :end_date, athlete_ids: [])
   end
 
 end

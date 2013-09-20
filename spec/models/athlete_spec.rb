@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Athlete do
-  let(:athlete) { FactoryGirl.build(:athlete) }
+  let(:athlete) { FactoryGirl.create(:athlete) }
 
   subject { athlete }
 
@@ -51,18 +51,15 @@ describe Athlete do
     end
 
     describe "password validations" do
-      describe "with missing password" do
+      describe "with missing password and confirmation" do
         # password digested on build, need a new athlete which has never had
         # a matching password and confirmation
-        let(:missing_password) { FactoryGirl.build(:athlete, password: "") }
+        before do
+          athlete.password = ""
+          athlete.password_confirmation = ""
+        end
 
-        specify { missing_password.should_not be_valid }
-      end
-
-      describe "with missing password_confirmation" do
-        before { athlete.password_confirmation = " " }
-
-        it { should_not be_valid }
+        specify { athlete.should_not be_valid }
       end
 
       describe "with mismatched password_confirmation" do
@@ -130,8 +127,7 @@ describe Athlete do
     end
 
     describe "when capital letters are present in email" do
-      let(:uppercase_email) { FactoryGirl.build(:athlete, email: "SoMeCaPiTaLs@Example.CoM") }
-      before { uppercase_email.save }
+      let(:uppercase_email) { FactoryGirl.create(:athlete, email: "SoMeCaPiTaLs@Example.CoM") }
 
       it "should downcase! email when saving to the db" do
         Athlete.find_by(email: uppercase_email.email).should == uppercase_email
@@ -140,14 +136,14 @@ describe Athlete do
 
     describe "remember token validations" do
       let(:new_athlete) { FactoryGirl.build(:athlete) }
+      let(:saved_athlete) { FactoryGirl.create(:athlete) }
 
       it "should not have a remember token before being saved" do
         new_athlete.remember_token.should be_blank
       end
 
       it "should have a remember token after being saved to the db" do
-        new_athlete.save!
-        new_athlete.remember_token.should_not be_blank
+        saved_athlete.remember_token.should_not be_blank
       end
     end
 
@@ -212,13 +208,6 @@ describe Athlete do
   end
 
   describe "tournaments and travel_rosters" do
-    it "should have no tournaments by default" do
-      athlete.tournaments.should be_empty
-    end
-
-    it "should have no travel_rosters by default" do
-      athlete.travel_rosters.should be_empty
-    end
 
     describe "after creating some tournaments and travel rosters" do
       let!(:tournament1) { FactoryGirl.create(:tournament) }

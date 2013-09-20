@@ -34,6 +34,11 @@ describe "Athlete Pages" do
     end
 
     describe "with valid information" do
+      before do
+        3.times do
+          athlete.seasons << FactoryGirl.create(:season)
+        end
+      end
 
       it "should create a new athlete" do
         expect { valid_sign_up(athlete) }.to change(Athlete, :count).by(1)

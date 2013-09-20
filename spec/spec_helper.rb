@@ -13,6 +13,8 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'
+  require 'capybara/rails'
+  require 'factory_girl_rails'
 
   # Checks for pending migrations before tests are run.
   # If you are not using ActiveRecord, you can remove this line.

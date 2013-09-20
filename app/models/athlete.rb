@@ -44,6 +44,10 @@ class Athlete < ActiveRecord::Base
       year_in_school == other.year_in_school
   end
 
+  def self.current_season_athletes
+    Season.current_season.athletes
+  end
+
   def self.new_remember_token
     SecureRandom.urlsafe_base64
   end

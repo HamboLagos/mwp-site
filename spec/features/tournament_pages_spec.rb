@@ -16,8 +16,14 @@ describe "Tournament pages" do
     it { should show_new_tournament_page }
 
     describe "with valid information" do
-      let(:tournament_data) { FactoryGirl.build(:tournament, season: Season.current_season) }
+      let(:tournament_data) { FactoryGirl.build(:tournament_no_associations) }
 
+      before do
+        tournament_data.season = FactoryGirl.create(:season)
+        # broken, atm
+        # two checkboxes with same name appear, unsure why
+        # tournament_data.athletes << admin
+      end
 
       it "should create a new tournament" do
         expect { valid_create_tournament(tournament_data) }.to change(Tournament, :count).by(1)
@@ -36,6 +42,22 @@ describe "Tournament pages" do
         # page.should have_content("Season can't be blank")
         page.should have_content("Location can't be blank")
       end
+    end
+  end
+
+  describe "#show" do
+    let(:tournament) { FactoryGirl.create(:tournament) }
+    let(:driver) { FactoryGirl.create(:athlete) }
+    let(:passenger) { FactoryGirl.create(:athlete) }
+
+    before do
+      tournament.athletes << driver
+      tournament.athletes << passenger
+      visit tournament_path(tournament)
+    end
+
+    it "should show the show tournament page" do
+      page.should show_tournament_page(tournament)
     end
   end
 end

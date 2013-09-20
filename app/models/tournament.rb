@@ -3,8 +3,7 @@ class Tournament < ActiveRecord::Base
   has_many :travel_rosters
   has_many :athletes, through: :travel_rosters
 
-  # breaks capybara tests with hidden field weirdness
-  # validates :season, presence: true
+  validates :season, presence: true
   validates :location, presence: true
   validates :start_date, presence: true, uniqueness: true
   validates :end_date, presence: true, uniqueness: true

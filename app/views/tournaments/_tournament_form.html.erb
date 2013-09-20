@@ -20,5 +20,12 @@
   <%= f.label :end_date %>
   <%= f.date_select :end_date %>
 
+  <%= f.label :athletes %>
+  <div class='athlete_checkboxes'>
+    <%= f.collection_check_boxes :athlete_ids, @current_season_athletes, :id, :name do |b| %>
+      <%= b.label(class: 'checkbox inline') { b.check_box + b.text }%>
+    <% end %>
+  </div>
+
   <%= f.submit "Submit", class: 'btn btn-large btn-primary' %>
 <% end %>
