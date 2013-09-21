@@ -7,4 +7,6 @@ class Tournament < ActiveRecord::Base
   validates :location, presence: true
   validates :start_date, presence: true, uniqueness: true
   validates :end_date, presence: true, uniqueness: true
+
+  accepts_nested_attributes_for :travel_rosters
 end

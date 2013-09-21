@@ -27,7 +27,6 @@ module TournamentPagesUtilities
       page.should have_selector('h3', text: "#{tournament.start_date.strftime("%A, %B %-d %Y")}")
       page.should have_selector('h3', text: "#{tournament.end_date.strftime("%A, %B %-d %Y")}")
       #TODO check for athletes, including drivers and passengers
-      #TODO check for start and end dates
     end
   end
 

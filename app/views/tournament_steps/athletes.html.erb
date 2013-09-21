@@ -1,0 +1,12 @@
+<h1 class='text-center'>Select Traveling Athletes</h1>
+<h3 class='text-center'>(Assign Drivers and Passengers in Next Step)</h3>
+<%= render layout: 'form' do |f| %>
+
+  <%= f.label :athletes %>
+  <div class='athlete_checkboxes span12'>
+    <%= f.collection_check_boxes :athlete_ids, @current_season_athletes, :id, :name do |b| %>
+      <%= b.label(class: 'checkbox inline span2') { b.check_box + b.text }%>
+    <% end %>
+  </div>
+
+<% end %>

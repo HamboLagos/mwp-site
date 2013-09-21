@@ -1,0 +1,15 @@
+<h1 class='text-center'>Select Drivers</h1>
+<h3 class='text-center'>(Assign Passengers in Next Step)</h3>
+<%= render layout: 'form' do |f| %>
+
+  <% @travel_rosters.each do |tr| %>
+    <%= f.fields_for :travel_rosters, tr do |ff| %>
+      <div class='checkbox inline span2'>
+        <%= ff.check_box :driver %>
+        <%= ff.label "#{tr.name}" %>
+      </div>
+    <% end %>
+  <% end %>
+
+<% end %>
+

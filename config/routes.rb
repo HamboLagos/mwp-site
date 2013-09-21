@@ -23,7 +23,9 @@ MwpSite::Application.routes.draw do
   resources :seasons, only: [:new, :create]
 
   #tournaments
-  resources :tournaments, only: [:new, :create, :show]
+  resources :tournaments do |key|
+    resources :tournament_steps, controller: 'tournament_steps'
+  end
 
 
   # You can have the root of your site routed with "root"

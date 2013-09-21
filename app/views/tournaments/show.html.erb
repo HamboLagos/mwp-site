@@ -3,16 +3,27 @@
   <%= "#{@tournament.start_date.strftime("%A, %B %-d %Y")} " %>
   through<%= " #{@tournament.end_date.strftime("%A, %B %-d %Y")}" %>
 </h3>
-<div class='tournament_listing span8'>
-  <ul class='tournament_list'>
-    <% @tournament.athletes.each do |athlete| %>
-      <li>
-        <ul class='tournament_item span5'>
-          <li class='span2'><%= athlete.name %></li>
-          <li class='span2'><%= athlete.phone_number %></li>
-        </ul>
-      </li>
-    <% end %>
-  </ul>
+<div class='span12'>
+  <div class='span1'></div>
+  <div class='tournament_listing span8'>
+    <ul class='tournament_list'>
+      <% @tournament.athletes.each do |athlete| %>
+        <% travel_roster = @tournament.travel_rosters.find_by(athlete_id: athlete.id) %>
+        <li>
+          <ul class='tournament_item span8'>
+            <li class='span2'><%= athlete.name %></li>
+            <li class='span2'><%= athlete.phone_number %></li>
+            <li class='span3'>
+              <% if travel_roster.driver? %>driver<% else %>passenger of <%= travel_roster.car_name %><% end %>
+            </li>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <div class='span3'></div>
 </div>
 
+<div class='span12'>
+  <%= link_to "Edit this Tournament", edit_tournament_path(@tournament) %>
+</div>

@@ -53,6 +53,9 @@ describe "Tournament pages" do
     before do
       tournament.athletes << driver
       tournament.athletes << passenger
+      tournament.travel_rosters.find_by(athlete_id: driver).update!(driver: true)
+      tournament.travel_rosters.find_by(athlete_id: passenger).update!(driver: false,
+                                                                       car: driver.id)
       visit tournament_path(tournament)
     end
 

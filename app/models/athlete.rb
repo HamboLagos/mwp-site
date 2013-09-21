@@ -44,6 +44,11 @@ class Athlete < ActiveRecord::Base
       year_in_school == other.year_in_school
   end
 
+  #car is an alias for id from the perspective of travel_rosters
+  def car
+    self.id
+  end
+
   def self.current_season_athletes
     Season.current_season.athletes
   end

@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 # make heroku happy
 group :production do
+  gem 'rails_12factor'
   ruby '2.0.0'
 end
 
@@ -79,6 +80,9 @@ end
 
 # set environment variables in config/application.yml
 gem 'figaro'
+
+# use multi-step form (wizard) for tournaments
+gem 'wicked'
 
 group :test do
   gem 'capybara', '~> 2.1.0'

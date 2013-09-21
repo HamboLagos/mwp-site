@@ -1,0 +1,16 @@
+<h1 class='text-center'>Tournaments</h1>
+<div class='roster_listing span8'>
+  <ul class='roster_list'>
+    <% Tournament.all.each do |tournament| %>
+      <li>
+        <ul class='tournament_item span8'>
+          <li class='span2'><%= link_to tournament.location, tournament_path(tournament) %></li>
+          <li class='span2'><%= tournament.start_date %></li>
+          <li class='span2'><%= tournament.end_date %></li>
+        </ul>
+      </li>
+    <% end %>
+    <%= link_to "Create New Tournament", new_tournament_path %>
+  </ul>
+</div>
+

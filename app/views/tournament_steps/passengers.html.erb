@@ -1,0 +1,14 @@
+<h1 class='text-center'>Select Drivers</h1>
+<h3 class='text-center'>(Assign Passengers in Next Step)</h3>
+<%= render layout: 'form' do |f| %>
+
+  <% @travel_rosters.each do |tr| %>
+    <%= f.fields_for :travel_rosters, tr do |ff| %>
+      <%= ff.label "#{tr.name}" %>
+      <%= ff.select :car, @drivers.collect { |d| [d.name, d.car] } %>
+    <% end %>
+  <% end %>
+
+<% end %>
+
+
