@@ -4,13 +4,15 @@
     <% Tournament.all.each do |tournament| %>
       <li>
         <ul class='tournament_item span8'>
-          <li class='span2'><%= link_to tournament.location, tournament_path(tournament) %></li>
-          <li class='span2'><%= tournament.start_date %></li>
-          <li class='span2'><%= tournament.end_date %></li>
+          <li class='span2 tournament_index_location'>
+            <%= link_to tournament.location, tournament_path(tournament) %>
+          </li>
+          <li class='span2 tournament_index_start_date'><%= tournament.start_date %></li>
+          <li class='span2 tournament_index_end_date'><%= tournament.end_date %></li>
         </ul>
       </li>
     <% end %>
-    <%= link_to "Create New Tournament", new_tournament_path %>
+    <%= link_to "Create New Tournament", new_tournament_path, class: 'btn btn-large' %>
   </ul>
 </div>
 

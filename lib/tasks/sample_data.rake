@@ -75,13 +75,13 @@ def make_tournaments(athletes)
                       start_date: start_date,
                       end_date: end_date,
                       athletes: athletes[rand(1..5)..rand(6..11)])
-    tourney.travel_rosters.each do |tr|
-      if tr.id < 3
+    tourney.travel_rosters.each_with_index do |tr, index|
+      if index < 2 
         tr.update!(driver: true)
-      elsif tr.id < (Athlete.all.count-2)/2
-        tr.update(driver: TravelRoster.find(1).athlete_id)
+      elsif index < tourney.athletes.count/2
+        tr.update!(car: tourney.travel_rosters.first.athlete_id)
       else
-        tr.update(driver: TravelRoster.find(2).athlete_id)
+        tr.update!(car: tourney.travel_rosters.second.athlete_id)
       end
     end
   end
@@ -94,13 +94,13 @@ def make_tournaments(athletes)
                       start_date: start_date,
                       end_date: end_date,
                       athletes: athletes[rand(1..5)..rand(6..11)])
-    tourney.travel_rosters.each do |tr|
-      if tr.id < 3
+    tourney.travel_rosters.each_with_index do |tr, index|
+      if index < 2
         tr.update!(driver: true)
-      elsif tr.id < (Athlete.all.count-2)/2
-        tr.update(driver: TravelRoster.find(1).athlete_id)
+      elsif index < tourney.athletes.count/2
+        tr.update!(car: tourney.travel_rosters.first.athlete_id)
       else
-        tr.update(driver: TravelRoster.find(2).athlete_id)
+        tr.update!(car: tourney.travel_rosters.second.athlete_id)
       end
     end
   end

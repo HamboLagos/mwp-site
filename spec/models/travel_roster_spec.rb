@@ -10,6 +10,10 @@ describe TravelRoster do
   describe "Basic functionalitities" do
     it { should respond_to(:athlete) }
     it { should respond_to(:tournament) }
+    it { should respond_to(:driver?) }
+    it { should respond_to(:car) }
+    it { should respond_to(:name) }
+    it { should respond_to(:car_name) }
   end
 
   describe "validations" do

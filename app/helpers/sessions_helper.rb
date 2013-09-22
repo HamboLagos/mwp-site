@@ -30,6 +30,10 @@ module SessionsHelper
   end
 
   def admin?
-    self.current_athlete.admin?
+    if self.current_athlete
+      self.current_athlete.admin?
+    else
+      false
+    end
   end
 end

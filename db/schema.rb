@@ -64,7 +64,8 @@ ActiveRecord::Schema.define(version: 20130921201737) do
     t.datetime "updated_at"
   end
 
-  add_index "tournaments", ["start_date", "end_date"], name: "index_tournaments_on_start_date_and_end_date", unique: true, using: :btree
+  add_index "tournaments", ["start_date", "end_date"], name:
+    "index_tournaments_on_start_date_and_end_date", unique: true, using: :btree
 
   create_table "travel_rosters", force: true do |t|
     t.integer  "athlete_id"

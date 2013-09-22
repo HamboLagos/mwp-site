@@ -85,6 +85,7 @@ gem 'figaro'
 gem 'wicked'
 
 group :test do
+  gem 'launchy'
   gem 'capybara', '~> 2.1.0'
   gem 'rb-inotify'
   gem 'libnotify'

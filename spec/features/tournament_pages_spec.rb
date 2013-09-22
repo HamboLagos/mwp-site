@@ -16,17 +16,27 @@ describe "Tournament pages" do
     it { should show_new_tournament_page }
 
     describe "with valid information" do
+      let(:season) { FactoryGirl.create(:season) }
       let(:tournament_data) { FactoryGirl.build(:tournament_no_associations) }
+      let(:athletes) { [
+        FactoryGirl.build(:athlete_no_associations, first_name: "Hillary", last_name: "Clinton"),
+        FactoryGirl.build(:athlete_no_associations, first_name: "Samuel", last_name: "Jackson"),
+        FactoryGirl.build(:athlete_no_associations, first_name: "Danny", last_name: "Trejo")
+      ] }
 
       before do
-        tournament_data.season = FactoryGirl.create(:season)
-        # broken, atm
-        # two checkboxes with same name appear, unsure why
-        # tournament_data.athletes << admin
+        tournament_data.season = season
+        athletes.each do |athlete|
+          athlete.seasons << season
+          athlete.save!
+        end
+        tournament_data.athletes << athletes
       end
 
       it "should create a new tournament" do
         expect { valid_create_tournament(tournament_data) }.to change(Tournament, :count).by(1)
+        page.should show_tournament_page(Tournament.last)
+        Tournament.last.athletes.sort { |a,b| a.first_name <=> b.last_name }.should == athletes
       end
     end
 
@@ -61,6 +71,24 @@ describe "Tournament pages" do
 
     it "should show the show tournament page" do
       page.should show_tournament_page(tournament)
+    end
+  end
+
+  describe "#index" do
+    let(:tournaments)  { [] }
+    let(:season) { FactoryGirl.create(:season) }
+
+    before do
+      3.times do
+        tournament = FactoryGirl.create(:tournament)
+        tournament.season = season
+        tournaments << tournament
+      end
+      visit tournaments_path
+    end
+
+    it "should show the tournament listings" do
+      page.should show_tournaments_page(tournaments)
     end
   end
 end
