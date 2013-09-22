@@ -163,6 +163,11 @@ describe "Athlete Pages" do
     let!(:sammy) { FactoryGirl.create(:athlete, first_name: "Samuel", last_name: "Jackson") }
     let!(:hillary) { FactoryGirl.create(:athlete, first_name: "Hillary", last_name: "Clinton") }
 
+    before do
+      danny.seasons << Season.current_season
+      sammy.seasons << Season.current_season
+      hillary.seasons << Season.current_season
+    end
 
     describe "to a non-signed-in user" do
 

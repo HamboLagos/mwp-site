@@ -1,7 +1,7 @@
 <h1 class='text-center'>Tournaments</h1>
 <div class='roster_listing span8'>
   <ul class='roster_list'>
-    <% Tournament.all.each do |tournament| %>
+    <% @current_season_tournaments.each do |tournament| %>
       <li>
         <ul class='tournament_item span8'>
           <li class='span2 tournament_index_location'>

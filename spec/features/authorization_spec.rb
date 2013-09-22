@@ -12,6 +12,12 @@ describe "Authorization specs" do
       let!(:admin) { FactoryGirl.create(:admin, first_name: 'Samuel', last_name: 'Jackson') }
       let!(:other) { FactoryGirl.create(:athlete) }
 
+      before do
+        athlete.seasons << Season.current_season
+        admin.seasons << Season.current_season
+        other.seasons << Season.current_season
+      end
+
       describe "editing own profile" do
         before { visit edit_athlete_path(athlete) }
 

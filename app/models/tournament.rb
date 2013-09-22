@@ -9,4 +9,8 @@ class Tournament < ActiveRecord::Base
   validates :end_date, presence: true, uniqueness: true
 
   accepts_nested_attributes_for :travel_rosters
+
+  def self.current_season_tournaments
+    Season.current_season.tournaments
+  end
 end

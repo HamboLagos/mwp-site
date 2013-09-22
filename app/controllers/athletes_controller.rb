@@ -50,6 +50,7 @@ class AthletesController < ApplicationController
   end
 
   def index
+    @current_season_athletes = Athlete.current_season_athletes
   end
 
   # end of standard RESTful athlete routes

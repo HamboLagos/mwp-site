@@ -38,6 +38,10 @@ class TournamentsController < ApplicationController
     end
   end
 
+  def index
+    @current_season_tournaments = Tournament.current_season_tournaments
+  end
+
   private
 
   def tournament_params
