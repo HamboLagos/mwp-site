@@ -4,12 +4,17 @@
   </div>
   <div class='offset1 span8' id='announcements_pane'>
     <h1 class='text-center'>Announcements</h1>
+    <% if admin? %>
+      <%= link_to "New Post", new_athlete_post_path(@current_athlete), class: 'btn btn-large text-center' %>
+    <% end %>
     <% if @posts.any? %>
       <ul class='announcements'>
         <% @posts.each do |post|%>
+          <li class='title text-center'><%= post.title %></li>
           <li class='content'><%= post.content %></li>
           <small class='meta-data'><%= post.author.name %> <br />
             posted: <%= time_tag post.updated_at %></small>
+          <%= link_to "Edit this Post", edit_athlete_post_path(@current_athlete, post), class: 'meta-data' %>
         <% end %>
       <% else %>
         <p class='text-center'>Sorry, there have been no posts recently.</p>

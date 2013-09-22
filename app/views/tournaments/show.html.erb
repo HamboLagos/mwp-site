@@ -11,9 +11,9 @@
         <% travel_roster = @tournament.travel_rosters.find_by(athlete_id: athlete.id) %>
         <li>
           <ul class='tournament_item span8'>
-            <li class='span2'><%= athlete.name %></li>
-            <li class='span2'><%= athlete.phone_number %></li>
-            <li class='span3'>
+            <li class='span2' id='tournament_show_name'><%= athlete.name %></li>
+            <li class='span2' id='tournament_show_phone'><%= athlete.phone_number %></li>
+            <li class='span3' id='tournament_show_car'>
               <% if travel_roster.driver? %>driver<% else %>passenger of <%= travel_roster.car_name %><% end %>
             </li>
           </ul>
@@ -25,5 +25,5 @@
 </div>
 
 <div class='span12'>
-  <%= link_to "Edit this Tournament", edit_tournament_path(@tournament) %>
+  <%= link_to "Edit this Tournament", edit_tournament_path(@tournament), class: 'btn btn-large' %>
 </div>

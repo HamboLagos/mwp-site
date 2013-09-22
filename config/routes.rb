@@ -5,7 +5,12 @@ MwpSite::Application.routes.draw do
 
   root 'posts#index'
 
-  resources :athletes, only: [:create, :edit, :update, :destroy, :show]
+  #posts
+
+  #athletes
+  resources :athletes, only: [:create, :edit, :update, :destroy, :show] do
+    resources :posts
+  end
   get '/roster' => 'athletes#index'
   get '/signup' => 'athletes#new'
   get '/athletes/:id/change_password' => 'athletes#change_password',

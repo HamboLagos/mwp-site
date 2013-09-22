@@ -12,6 +12,6 @@ class TravelRoster < ActiveRecord::Base
   end
 
   def name
-    Athlete.find(self.athlete_id).name
+    self.athlete.name
   end
 end

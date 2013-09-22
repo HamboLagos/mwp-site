@@ -36,11 +36,10 @@ class TournamentStepsController < ApplicationController
       @tournament.update(passenger_params)
     end
     render_wizard @tournament
-    # render wizard_path(:passengers)
   end
 
   def finish_wizard_path
-    tournaments_path
+    tournament_path(Tournament.last)
   end
 
   private

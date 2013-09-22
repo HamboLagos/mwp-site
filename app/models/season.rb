@@ -25,7 +25,7 @@ class Season < ActiveRecord::Base
   end
 
   def self.current_season
-    @current_season ||= Season.find_by(current: true)
+    Season.find_by(current: true)
   end
 
 end
