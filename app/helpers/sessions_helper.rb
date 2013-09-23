@@ -52,7 +52,7 @@ module SessionsHelper
   end
 
   def administrative_user
-    unless current_athlete.admin?
+    unless admin?
       flash[:error] = 'You must be a site admin to access this'
       redirect_to root_path
     end

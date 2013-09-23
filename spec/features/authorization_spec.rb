@@ -130,7 +130,7 @@ describe "Authorization specs" do
       it  "should be prohibited to a non-admin" do
         page.should show_posts_page
         page.should have_selector('div.alert')
-        page.should have_content('You must have administrative privelages')
+        page.should have_content('You must be a site admin to access this')
       end
     end
   end
@@ -147,7 +147,7 @@ describe "Authorization specs" do
       it "should be prohibited to a non-admin" do
         page.should show_posts_page
         page.should have_selector('div.alert')
-        page.should have_content('You must have administrative privelages')
+        page.should have_content('You must be a site admin to access this')
       end
     end
   end

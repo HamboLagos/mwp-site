@@ -5,13 +5,12 @@ include SessionPagesUtilities
 describe "Tournament pages" do
   let(:admin) { FactoryGirl.create(:admin) } #auth checks in authorization_pages spec
 
+  before { valid_sign_in admin }
+
   subject { page }
 
   describe "#new/#create" do
-    before do
-      valid_sign_in admin
-      visit new_tournament_path
-    end
+    before { visit new_tournament_path }
 
     it { should show_new_tournament_page }
 
