@@ -5,7 +5,6 @@
   <%= yield f %>
 
   <%= f.submit "Continue", class: "btn btn-large btn-primary" %> or
-  <%= link_to "skip this step", next_wizard_path %> or
   <% if request.path == previous_wizard_path %>
     <%= link_to "Go back a step", edit_tournament_path(@tournament) %>
   <% else %>
