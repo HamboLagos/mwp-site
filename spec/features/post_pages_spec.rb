@@ -4,7 +4,7 @@ describe "Post pages" do
 
   subject { page }
 
-  describe "#show (Home Page)" do
+  describe "#index (Home Page)" do
     before { visit root_path }
 
     it { should show_posts_page }

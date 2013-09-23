@@ -76,12 +76,13 @@ describe "Tournament pages" do
 
   describe "#index" do
     let(:tournaments)  { [] }
-    let(:season) { FactoryGirl.create(:season) }
+    let!(:season) { FactoryGirl.create(:season) } # need a season for Season.current_season
 
     before do
       3.times do
-        tournament = FactoryGirl.create(:tournament)
-        tournament.season = season
+        tournament = FactoryGirl.build(:tournament_no_associations)
+        tournament.season = Season.current_season
+        tournament.save!
         tournaments << tournament
       end
       visit tournaments_path

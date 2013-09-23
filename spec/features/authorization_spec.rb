@@ -5,6 +5,56 @@ include PostPagesUtilities
 
 describe "Authorization specs" do
 
+  subject { page }
+
+  describe "Post Pages" do
+    let(:admin) { FactoryGirl.create(:admin) }
+    let(:athlete) { FactoryGirl.create(:athlete) }
+    let(:posts) { [] }
+
+    before do
+      valid_sign_in admin
+      3.times do
+        posts << FactoryGirl.create(:post, athlete: admin)
+      end
+      visit root_path
+    end
+
+    describe "as admin " do
+
+      it "should have the right admin links" do
+        page.should show_posts_page
+        posts.each do |post|
+          page.should have_link('Edit This Post', href: edit_athlete_post_path(post.athlete, post))
+          page.should have_link('Delete This Post',
+                                href: athlete_post_path(post.athlete, post))
+        end
+        page.should have_link('New Post', href: new_athlete_post_path(admin))
+      end
+    end
+
+    describe "as non-admin" do
+      before do
+        valid_sign_in athlete
+        3.times do
+          posts << FactoryGirl.create(:post, athlete: admin)
+        end
+        visit root_path
+      end
+
+      it "should have the right admin links" do
+        page.should show_posts_page
+        posts.each do |post|
+          page.should_not have_link('Edit This Post',
+                                    href: edit_athlete_post_path(post.athlete, post))
+          page.should_not have_link('Delete This Post',
+                                    href: athlete_post_path(post.athlete, post))
+        end
+        page.should_not have_link('New Post', href: new_athlete_post_path(admin))
+      end
+    end
+  end
+
   describe "Athlete pages" do
 
     describe "editing profile authorizations" do
@@ -29,7 +79,7 @@ describe "Authorization specs" do
 
           it "should tell the user they must sign in" do
             page.should have_selector('div.alert')
-            page.should have_content('You must be signed in to edit your profile')
+            page.should have_content('You must sign in first')
           end
         end
       end
@@ -41,12 +91,12 @@ describe "Authorization specs" do
         end
 
         it "should be prohibited" do
-          page.should show_roster_page({signed_in: true}, athlete, admin, other)
+          page.should show_posts_page
         end
 
         it "should tell the user why" do
           page.should have_selector('div.alert')
-          page.should have_content('You are only authorized to edit your own profile')
+          page.should have_content('You are not authorized to perform this action')
         end
       end
 

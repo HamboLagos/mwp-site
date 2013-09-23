@@ -1,6 +1,8 @@
 class TournamentsController < ApplicationController
   include SessionsHelper
 
+  before_action :administrative_user
+
   def new
     unless admin?
       flash[:alert] = "You must have administrative privelages to create a new tournament"

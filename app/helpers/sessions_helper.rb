@@ -36,4 +36,25 @@ module SessionsHelper
       false
     end
   end
+
+  def signed_in_user
+    unless signed_in?
+      flash[:error] = 'You must sign in first'
+      redirect_to root_path
+    end
+  end
+
+  def correct_user
+    unless current_athlete.authorized?(params[:id])
+      flash[:error] = 'You are not authorized to perform this action'
+      redirect_to root_path
+    end
+  end
+
+  def administrative_user
+    unless current_athlete.admin?
+      flash[:error] = 'You must be a site admin to access this'
+      redirect_to root_path
+    end
+  end
 end

@@ -39,7 +39,7 @@ module TournamentPagesUtilities
     match do |page|
       page.should have_selector('h1', text: "Tournaments")
       tournaments.each do |tournament|
-        page.should have_link(tournament.location)
+        page.should have_link(tournament.location, href: tournament_path(tournament))
         # page.should have_selector('li#tournament_index_start_date',
         #                           text: tournament.start_date.strftime("%Y-%m-%d"))
         # page.should have_selector('li#tournament_index_end_date',

@@ -2,6 +2,8 @@ class TournamentStepsController < ApplicationController
   include SessionsHelper
   include Wicked::Wizard
 
+  before_action :administrative_user
+
   steps :athletes, :drivers, :passengers
 
   def show

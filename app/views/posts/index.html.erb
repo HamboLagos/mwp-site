@@ -15,7 +15,10 @@
           <small class='meta-data'><%= post.author.name %> <br />
             posted: <%= time_tag post.updated_at %></small>
           <% if admin? %>
-            <%= link_to "Edit this Post", edit_athlete_post_path(@current_athlete, post), class: 'meta-data' %>
+            <%= link_to "Edit This Post", edit_athlete_post_path(@current_athlete, post), class: 'meta-data' %>
+            <small class='meta-data'>or </small>
+            <%= link_to "Delete This Post", athlete_post_path(post.athlete, post), method: :delete, class: 'meta-data',
+              data: { confirm: "Are you sure? This will delete #{post.title}" }  %>
           <% end %>
         <% end %>
       <% else %>

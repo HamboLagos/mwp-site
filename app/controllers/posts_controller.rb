@@ -1,19 +1,16 @@
 class PostsController < ApplicationController
   include SessionsHelper
 
+  before_action :administrative_user, only: [:new, :create, :edit, :update, :destroy]
+
   def index
     @current_athlete = current_athlete
-    @posts = Post.all.sort { |a,b| b.updated_at <=> a.updated_at }
+    @posts = Post.all.sort { |a,b| b.updated_at <=> a.updated_at } # reverse chronological order
   end
 
   def new
-    if admin?
-      @athlete = current_athlete
-      @post = Post.new
-    else
-      flash['error'] = 'You must have administrative privelages to create a new post'
-      redirect_to root_path
-    end
+    @athlete = current_athlete
+    @post = Post.new
   end
 
   def create
@@ -48,6 +45,11 @@ class PostsController < ApplicationController
       @athlete = current_athlete
       render 'edit'
     end
+  end
+
+  def destroy
+    Post.find(params[:id]).destroy
+    redirect_to root_path
   end
 
   private

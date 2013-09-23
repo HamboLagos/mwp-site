@@ -3,6 +3,9 @@ class AthletesController < ApplicationController
   include SessionsHelper
   include AuthorizationHelper
 
+  before_action :signed_in_user, only: [:edit, :update, :change_password, :commit_password_change]
+  before_action :correct_user, only: [:edit, :update, :change_password, :commit_password_change]
+
   def new
     @athlete = Athlete.new
   end
@@ -19,23 +22,10 @@ class AthletesController < ApplicationController
   end
 
   def edit
-    #Authentication check
-    unless signed_in?
-      flash[:error] = 'You must be signed in to edit your profile'
-      redirect_to root_path
-    else
-      # Authorization check
-      unless current_athlete.authorized?(params[:id])
-        flash[:error] = 'You are only authorized to edit your own profile'
-        redirect_to roster_path
-      else
-        if admin? && Athlete.find_by(id: params[:id]) != current_athlete
-          flash.now[:notice] = "You are editing another player's profile"
-        end
-        @athlete = Athlete.find_by(id: params[:id])
-      end
+    if admin? && Athlete.find_by(id: params[:id]) != current_athlete
+      flash.now[:notice] = "You are editing another player's profile"
     end
-
+    @athlete = Athlete.find_by(id: params[:id])
   end
 
   def update
@@ -56,36 +46,46 @@ class AthletesController < ApplicationController
   # end of standard RESTful athlete routes
 
   def change_password
-    @form_errors = FormErrors.new
+    unless current_athlete == Athlete.find(params[:id]) #admins can't change another athlete's pw
+      flash['error'] = "You are not authorized to perform this action"
+      redirect_to edit_athlete_path(Athlete.find(params[:id]))
+    else
+      @form_errors = FormErrors.new
+    end
   end
 
   def commit_password_change
-    @athlete = Athlete.find_by(id: params[:id])
+    unless current_athlete == Athlete.find(params[:id]) #admins can't change another athlete's pw
+      flash['error'] = "You are not authorized to perform this action"
+      redirect_to edit_athlete_path(Athlete.find(params[:id]))
+    else
+      @athlete = Athlete.find_by(id: params[:id])
 
-    @form_errors = FormErrors.new
-    if params[:old_password] != params[:old_password_confirmation]
-      @form_errors << 'Old Password and Old Password Confirmation do not match'
-    end
-    if params[:new_password] != params[:new_password_confirmation]
-      @form_errors << 'New Password and New Password Confirmation do not match'
-    end
+      @form_errors = FormErrors.new
+      if params[:old_password] != params[:old_password_confirmation]
+        @form_errors << 'Old Password and Old Password Confirmation do not match'
+      end
+      if params[:new_password] != params[:new_password_confirmation]
+        @form_errors << 'New Password and New Password Confirmation do not match'
+      end
 
-    if @form_errors.errors == [] && @athlete.authenticate(params[:old_password])
-      if @athlete.update(change_password_params) && !params[:password].blank?
-        flash[:notice] = "You have successfully changed your password"
-        redirect_to edit_athlete_path(@athlete)
+      if @form_errors.errors == [] && @athlete.authenticate(params[:old_password])
+        if @athlete.update(change_password_params) && !params[:password].blank?
+          flash[:notice] = "You have successfully changed your password"
+          redirect_to edit_athlete_path(@athlete)
+        else
+          @athlete.errors.full_messages.each do |message|
+            @form_errors << message
+          end
+          if params[:password].blank?
+            @form_errors << 'Password cannot be blank'
+          end
+          render 'change_password'
+        end
       else
-        @athlete.errors.full_messages.each do |message|
-          @form_errors << message
-        end
-        if params[:password].blank?
-          @form_errors << 'Password cannot be blank'
-        end
+        @form_errors << 'Old Password field is incorrect'
         render 'change_password'
       end
-    else
-      @form_errors << 'Old Password field is incorrect'
-      render 'change_password'
     end
   end
 
